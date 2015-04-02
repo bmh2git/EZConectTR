@@ -1,0 +1,183 @@
+<div class='row'>
+	<div class='col-md-3'></div>
+	<div class='col-md-6'>
+		<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-md-6">
+								<i class="fa fa-folder-open-o font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold"><?php echo $this->folderName?></span>
+								
+							</div>
+							<div class="col-md-6 text-right">
+								<a href="javascript:;" class="btn blue" onclick='showFolderAdd()'>
+																<i class="fa fa-folder-open-o"></i> Add new folder 
+								</a>
+								<a class="btn green" href='#upload-file' data-toggle='modal'>
+																<i class="fa  fa-upload"></i> Upload file
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<table class='table table-hover'>
+								<tr>
+									<th>Name</th>
+									<th>Type</th>
+									<th>Actions</th>
+								</tr>
+								<?php 
+								if(isset($this->lbr['lbr_main_id']))
+								{
+								?>
+								<tr>
+									<td colspan=3>
+										<a style="font-weight: bold" href="/library/index/id/<?php echo $this->lbr['lbr_main_id']?>"><i class="fa fa-folder"></i> ..</a>
+									</td>
+									
+								</tr>
+								<?php 
+								}
+								?>
+									<?php 
+								if(isset($this->lbrs['rows']) && count($this->lbrs['rows']))
+								{
+									foreach ($this->lbrs['rows'] as $lbr)
+									{
+										?>
+										<tr id='tr_file_<?php echo $lbr['lbr_id']?>'>
+										<?php
+										if($lbr['lbr_type'] == Application_Model_Library::LBR_TYPE_FOLDER)
+										{
+											?>
+
+												<td>
+													<a href='/library/index/id/<?php echo $lbr['lbr_id']?>' style='font-weight: bold'><i class='fa fa-folder'></i>  <span id='lbr_name_<?php echo $lbr['lbr_id']?>'><?php echo $lbr['lbr_name']?></span></a>
+													
+												</td>
+												<td>Folder</td>
+
+										
+											<?php
+										}
+										else 
+										{
+										?>
+										<td>
+											<a href='/get-file/library/id/<?php echo $lbr['lbr_id']?>' target='_blank' >
+												<i class='<?php echo Ez_Interface_Files_Manager::getFileIcon($lbr['lbr_content'])?>'></i> <span id='lbr_name_<?php echo $lbr['lbr_id']?>'><?php echo $lbr['lbr_name']?></span></a>	</td>
+										<td>File</td>
+										<?php
+										}
+										?>
+										<td>
+											<a href="javascript:;" class="btn blue btn-sm" onclick='renameFile(<?php echo $lbr['lbr_id']?>)'>
+															<i class="fa fa-pencil"></i> Rename </a>
+											
+											<a href="javascript:;" class="btn red btn-sm" onclick='deleteFile(<?php echo $lbr['lbr_id']?>)'>
+															<i class="fa fa-remove"></i> Delete </a>
+										</td>
+										</tr>
+										<?php
+										
+									}
+								}
+								?>
+							</table>
+
+						</div>
+		</div>				
+	</div>
+	<div class='col-md-3'>
+	
+	</div>
+</div>
+
+<div class="modal fade bs-modal-lg" id="upload-file" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Add new file in folder <?php echo $this->folderName?></h4>
+					</div>
+					<div class="modal-body" id='mdl-library-upload'>
+						<form name='frm_upload' method='post' enctype='multipart/form-data' action=''>
+							<input type='file' name='file' onchange='uploadFile();' />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn blue" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+<script>
+function uploadFile()
+{
+	Metronic.blockUI({
+
+        target: '#mdl-library-upload',
+
+        animate: true
+
+    });
+	document.frm_upload.submit();
+}
+function deleteFile(fileId)
+{
+	bootbox.confirm('Are you sure that you want to delete?', function(cf){
+				if(cf)
+				{
+					$.ajax({
+								type : 'post',
+								url  : '/library/delete/id/' + fileId,
+								success : function(r)
+								{
+									if(r == 'done')
+									{
+										$('#tr_file_'+fileId).fadeOut();
+									}
+									else 
+									{
+										bootbox.alert(r);
+									}
+								}
+					
+						})
+				}
+		})
+}
+function renameFile(fileId)
+{
+	bootbox.prompt('Enter new Name', function(r){
+				if(r)
+				{
+					$.ajax({
+								url  : '/library/rename/id/' + fileId,
+								data : { new_name : r },
+								type : 'post',
+								success : function(resp)
+								{
+									$('#lbr_name_' + fileId).html(resp)
+								}
+						})
+				}
+		});
+}
+function showFolderAdd()
+{
+	bootbox.prompt('New Folder Name', function(r){
+				if(r)
+				{
+					$.ajax({
+								url : '/library/add-folder',
+								data : {folder_name : r, root_id : <?php echo $this->p['lbr_main_id']?>},
+								success : function(r)
+								{
+									document.location.reload();
+								}
+						})
+				}
+		})
+}
+</script>

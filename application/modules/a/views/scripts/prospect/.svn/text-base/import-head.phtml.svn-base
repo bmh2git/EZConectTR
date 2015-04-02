@@ -1,0 +1,57 @@
+<?php 
+$session = Bootstrap::getSession();
+$auth = $session->admin;
+if($auth['adm_lvl'] == 1)
+{
+	//we need time for user groups and stuff like that, but everything is : make a shit pls and make`it fast
+?>
+<div class="form-group">
+	<label  class="col-md-2 control-label"><b>Assign this import to</b></label>
+	<div class="col-md-4">
+									
+		<select class='form-control' name='imp_adm_id'>
+			<?php 
+				echo App_Form_Select::build($this->admins['rows'], array('key' => 'adm_id', 'value' => 'adm_fullname') ,Sid_Auth_Admin::getAdminId());
+			?>
+		</select>
+	</div>
+</div>
+<?php 
+}
+?>
+<?php 
+if(isset($this->data) && count($this->data))
+{
+	$cnt = 0;
+	foreach ($this->data as $data)
+	{
+		?>
+		<div class="form-group">
+									<label  class="col-md-2 control-label"><?php echo $data?></label>
+									<div class="col-md-4">
+									
+											<select class='form-control' name='data[<?php echo $cnt?>]'>
+												<?php 
+												$selected = isset($this->sel[$cnt]) ? $this->sel[$cnt] : 0;
+												echo App_Form_Select::simpleBuild($this->fields, $selected);
+												?>
+											</select>
+										</div>
+								</div>
+		
+		<?php
+		$cnt++;
+	}
+	?>
+	
+	<div class="form-group" id='blockui_portlet_body'>
+									<div class="col-md-offset-2 col-md-10">
+										<a href="javascript:;" class="btn green" onclick='saveImport()'>
+															<i class="fa fa-plus"></i> Save Import / Edit </a>
+									</div>
+	</div>
+	
+	<?php
+}
+?>
+<input type='hidden' id='imp_id' value='<?php echo $this->imp_id?>' />

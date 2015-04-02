@@ -1,0 +1,228 @@
+<link href="/assets/admin/pages/css/inbox.css" rel="stylesheet" type="text/css"/>
+
+<div class="portlet light">
+				<div class="portlet-body">
+					<div class="row inbox">
+						<div class="col-md-2">
+							<ul class="inbox-nav margin-bottom-10">
+								<li class="compose-btn">
+									<a href="/script/add/id/<?php echo $this->id?>" data-title="Compose" class="btn green">
+									<i class="fa fa-plus"></i> Add new </a>
+								</li>
+								<li class="inbox <?php if($this->id == 1){?>active<?php }?>">
+									<a href="/script/" class="btn" data-title="Inbox">
+									Opening (<?php echo $this->cnt[1] ?>) </a>
+									<b></b>
+								</li>
+								
+								<li class="  <?php if($this->id == 2){?>active<?php }?>">
+									<a href="/script/index/id/2" class="btn" data-title="Inbox">
+									Closing (<?php echo $this->cnt[2] ?>) </a>
+									<b></b>
+								</li>
+								
+								<li class="  <?php if($this->id == 3){?>active<?php }?>">
+									<a href="/script/index/id/3" class="btn" data-title="Inbox">
+									Objections (<?php echo $this->cnt[3] ?>) </a>
+									<b></b>
+								</li>
+								
+								<li class="  <?php if($this->id == 4){?>active<?php }?>">
+									<a href="/script/index/id/4" class="btn" data-title="Inbox">
+									ASP (<?php echo $this->cnt[4] ?>) </a>
+									<b></b>
+								</li>
+								
+								
+								
+							</ul>
+						</div>
+						<div class="col-md-10">
+							<div class="inbox-header">
+								<h1 class="pull-left">Scripts for <?php echo $this->sectionName?></h1>
+								
+								
+	
+								
+							</div>
+							<div class='text-right'>
+								<div class="btn-group">
+										<a class="btn green-haze btn-circle" href="javascript:;" data-toggle="dropdown">
+										<i class="fa fa-check-circle"></i> <?php echo Application_Model_Module::getModuleName($this->module)?> <i class="fa fa-angle-down"></i>
+										</a>
+										<ul class="dropdown-menu pull-right">
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>)'>
+												Both (All)</a>
+											</li>
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_OSC?>)'>
+												Having <span class="label  label-danger">OSC</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>)'>
+												Having <span class="label label-primary">Secure24</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_ONLY_OSC?>)'>
+												Only <span class="label  label-danger">OSC</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_ONLY_SECURE24?>)'>
+												Only <span class="label  label-primary">Secure24</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_WITH_BOTH?>)'>
+												With Both options
+												</a>
+											</li>
+										</ul>
+								</div>
+							</div>
+							
+							<div class="inbox-content">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Ord.</th>
+											<th class='text-center'>
+												Title
+											</th>
+											<th class='text-center'>
+												Section
+											</th>
+											
+											<th class='text-center'>
+												Platform
+											</th>
+											
+											<th class='text-center'>
+												Action
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php 
+										if(count($this->data))
+										{
+											foreach ($this->data as $scr)
+											{
+											?>
+											<tr  class="ui-state-default">
+												<td class='col-md-1'>
+													<form method='post' action='/script/set-order/id/<?php echo $scr['scr_id']?>'>
+														<input data-original-title="Enter a value and press `Enter Key`" data-placement="right" data-container="body" type='text' name='order' class='tooltips form-control' value='<?php echo $scr['scr_order']?>'  onclick='this.select()'/>
+													</form>
+												</td>
+												<td><?php echo $scr['scr_title']?></td>
+												<td class='text-center'>
+													<?php 
+													if($scr['scr_section'] == Application_Model_Script::SCRIPT_SECTION_BOTH)
+													{
+														?>
+														<span class="label label-sm label-info">Prospects</span>
+														<span class="label label-sm label-success">Leads</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($scr['scr_section'] == Application_Model_Script::SCRIPT_SECTION_LEAD)
+													{
+														?>
+														<span class="label label-sm label-success">Leads</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($scr['scr_section'] == Application_Model_Script::SCRIPT_SECTION_PROSPECT)
+													{
+														?>
+														<span class="label label-sm label-info">Prospects</span>
+														<?php
+													}
+													?>
+												</td>
+												
+												<td class='text-center'>
+													<?php 
+													if($scr['scr_module'] == Application_Model_Module::MODULE_TYPE_BOTH)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($scr['scr_module'] == Application_Model_Module::MODULE_TYPE_OSC)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($scr['scr_module'] == Application_Model_Module::MODULE_TYPE_SECURE24)
+													{
+														?>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+												</td>
+												
+												<td class='text-center'><a href="/script/edit/id/<?php echo $this->id?>/scr_id/<?php echo $scr['scr_id']?>" class="btn btn-sm blue">
+															<i class="fa fa-edit"></i> Edit </a>
+															
+															<a href="javascript:;" class="btn btn-sm red" onclick='removeScript(<?php echo $scr['scr_id']?>)'>
+															<i class="fa fa-remove"></i> Delete </a>
+															
+															</td>
+											</tr>
+											<?php
+											}
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+<script>
+function setModule(mdl)
+{
+	$.ajax({
+				type : 'post',
+				url : '/script/set-module/module/' + mdl,
+				success : function(r)
+				{
+					document.location.reload();
+				}
+		})
+}
+function removeScript(scrId)
+{
+	bootbox.confirm('Sure ?',function(r){
+				if(r)
+				{
+					$.ajax({
+								url : '/script/delete/scr_id/' + scrId,
+								success : function(){
+											document.location.reload();
+									}
+						})
+				}
+		})
+}
+</script>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/ezconect/!svn/ver/71/www-admin
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/ezconect/!svn/ver/1/www-admin/.htaccess
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/ezconect/!svn/ver/1/www-admin/index.php
+END
+favicon.ico
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/ezconect/!svn/ver/35/www-admin/favicon.ico
+END

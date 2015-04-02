@@ -1,0 +1,70 @@
+<div class="row ">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-plus font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Import new lead file</span>
+							</div>
+							<div class="col-sm-6 text-right">
+								<a href='/lead/list-import/' class="btn default"><i class='fa fa-chevron-circle-left'></i> View imports</a>
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+
+							<form class="form-horizontal" role="form" id='frm_import'>
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-2 control-label">File</label>
+									<div class="col-md-4">
+											<iframe src='/lead/import-form/' width='350' height='120' frameborder=0></iframe>
+									</div>
+								</div>
+							
+							<div id='table-contents'>
+						
+							</div>
+							</form>
+						</div>
+							
+					</div>
+				</div>
+			</div>
+			
+<script>
+function saveImport()
+{
+	Metronic.blockUI({
+
+        target: '#blockui_portlet_body',
+
+        animate: true
+
+    });
+
+	$.ajax({
+				type : 'post',
+				data : $('#frm_import').serialize(),
+				url : '/lead/save-import/imp_id/'+ $('#imp_id').val(),
+				success : function(r)
+				{
+					eval(r);
+				}
+		})
+}
+function loadCsv(csvId)
+{
+	$.ajax({
+				type : 'post',
+				data : {imp_id : csvId},
+				url : '/lead/import-head',
+				success : function(r)
+				{
+					$('#table-contents').html(r);
+				}
+		})
+}
+</script>				
+			
+				

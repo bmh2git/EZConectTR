@@ -1,0 +1,80 @@
+<?php 
+$data = Zend_Json::decode($this->rsv['rsv_data']);
+Bootstrap::logConsole($data);
+$title = $this->rsv['rsv_type'] == 1 ? 'Oferta' : 'Last minute';
+
+if($this->rsv['rsv_type'] == 1)
+{
+	$link='sejururi/tara/oferta-hotel-rezervat-'.$data['ofr_id'];
+	$linkAdmin='/accommodation/edit/ofr_id/'.$data['ofr_id'];
+}
+if($this->rsv['rsv_type'] == 2)
+{
+	$link = 'last-minute/tara/oferta-hotel-rezervat-'.$data['lm_id'];
+	$linkAdmin='/last-minute/edit/lm_id/'.$data['lm_id'];
+}
+
+?>
+<h2>Rezervare pentru `<i><?php echo $title."</i> la ".App_Uc::getName($this->htl) ?>`</h2>
+<br /><br />
+<div class='row'>
+<div class='span9'>
+		<div  class="widget widget-heading-simple widget-body-white">
+
+						
+			<div class="widget-body collapse in">
+				<div class="row-fluid">
+					
+					<table class='table'>
+						<tr>
+							<td>Nume</td>
+							<td><?php echo $this->rsv['rsv_name']?></td>
+						</tr>
+						<tr>
+							<td>Telefon / Email</td>
+							<td><?php echo $data['phone']?> / <a href='mailto:<?php echo $data['email']?>'><?php echo $data['email']?></a></td>
+						</tr>
+						<tr>
+							<td>Grad de ocupare</td>
+							<td><?php echo $data['adulti']?> / <?php echo $data['copii']?></td>
+						</tr>
+						<?php 
+						if($this->rsv['rsv_type'] == 1)
+						{
+						?>
+						<tr>
+							<td>Perioada Ceruta</td>
+							<td><?php echo App_Date::fromMysqlDate($this->rsv['rsv_from_date'])?> - <?php echo App_Date::fromMysqlDate($this->rsv['rsv_to_date'])?></td>
+						</tr>
+						<?php 
+						}
+						?>
+						<tr>
+							<td>Hotel</td>
+							<td><?php echo App_Uc::getName($this->htl)?> din <?php echo $this->htl['cty_name']?> / <?php echo $this->htl['twn_name']?></td>
+						</tr>
+						<tr>
+							<td>Alte detalii</td>
+							<td><?php echo $data['alte-detalii']?></td>
+						</tr>
+						<tr>
+							<td >
+								<a target='_blank' href='http://www.amatours.ro/<?php echo $link?>'>Vezi oferta in site</a>
+							</td>
+							
+							<td >
+								<a target='_blank' href='<?php echo $linkAdmin?>'>Vezi oferta in administrare</a>
+							</td>
+							
+						</tr>
+					</table>
+					
+					
+				</div>
+				<br />
+				
+			</div>
+						
+			</div>
+</div>
+</div>

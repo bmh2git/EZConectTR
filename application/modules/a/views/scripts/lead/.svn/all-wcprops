@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ezconect/!svn/ver/92/application/modules/a/views/scripts/lead
+END
+process.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/ezconect/!svn/ver/92/application/modules/a/views/scripts/lead/process.phtml
+END
+add-import.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/lead/add-import.phtml
+END
+list-import.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/lead/list-import.phtml
+END
+edit.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ezconect/!svn/ver/75/application/modules/a/views/scripts/lead/edit.phtml
+END
+save-import.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ezconect/!svn/ver/1/application/modules/a/views/scripts/lead/save-import.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/ezconect/!svn/ver/30/application/modules/a/views/scripts/lead/index.phtml
+END
+add.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ezconect/!svn/ver/30/application/modules/a/views/scripts/lead/add.phtml
+END
+import-head.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/lead/import-head.phtml
+END
+import-form.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ezconect/!svn/ver/1/application/modules/a/views/scripts/lead/import-form.phtml
+END

@@ -1,0 +1,124 @@
+<link href="/assets/admin/pages/css/inbox.css" rel="stylesheet" type="text/css"/>
+
+<div class="portlet light">
+				<div class="portlet-body">
+					<div class="row inbox">
+						<div class="col-md-2">
+							<ul class="inbox-nav margin-bottom-10">
+								<li class="compose-btn">
+									<a href="/script/add/id/<?php echo $this->id?>" data-title="Compose" class="btn green">
+									<i class="fa fa-plus"></i> Add new </a>
+								</li>
+								<li class="inbox <?php if($this->id == 1){?>active<?php }?>">
+									<a href="/script/" class="btn" data-title="Inbox">
+									Opening (<?php echo $this->cnt[1] ?>) </a>
+									<b></b>
+								</li>
+								
+								<li class="  <?php if($this->id == 2){?>active<?php }?>">
+									<a href="/script/index/id/2" class="btn" data-title="Inbox">
+									Closing (<?php echo $this->cnt[2] ?>) </a>
+									<b></b>
+								</li>
+								
+								<li class="  <?php if($this->id == 3){?>active<?php }?>">
+									<a href="/script/index/id/3" class="btn" data-title="Inbox">
+									Objections (<?php echo $this->cnt[3] ?>) </a>
+									<b></b>
+								</li>
+								
+								
+								
+							</ul>
+						</div>
+						<div class="col-md-10">
+							<div class="inbox-header">
+								<h1 class="pull-left">New script for <?php echo $this->sectionName?></h1>
+								
+							</div>
+							
+							<div class="inbox-content">
+								<form class="form-horizontal" role="form" id='frm_script'>
+								
+									<div class="form-group">
+										<label class="col-md-2 control-label">Platform</label>
+										<div class="col-md-7">
+												<select name='scr_module' class='form-control'>
+													<?php 
+													echo App_Form_Select::simpleBuild(Application_Model_Module::getModulesArray(), $this->scr['scr_module']);
+													?>
+												</select>
+											
+										</div>
+									
+									</div>
+								
+									<div class="form-group">
+										<label class="col-md-2 control-label">Script for</label>
+										<div class="col-md-7">
+												<select name='scr_section' class='form-control'>
+													<option value=1>All sections</option>
+													<option value=2>Prospects</option>
+													<option value=3>Leads</option>
+												</select>
+											
+										</div>
+									
+									</div>
+									
+									<div class="form-group">
+										<label class="col-md-2 control-label">Title</label>
+										<div class="col-md-7">
+											
+												
+												<input type="text" class="form-control" name='scr_title'>
+											
+										</div>
+									
+									</div>
+									
+									<div class="form-group">
+										<label class="col-md-2 control-label">Script</label>
+										<div class="col-md-7">
+											
+												
+												<textarea class="form-control" name='scr_content' rows=7></textarea>
+											
+										</div>
+									
+									</div>
+									<div class="form-group">
+									<div class="col-md-offset-2 col-md-10">
+										<a href="javascript:;" class="btn green" onclick='addScript()'>
+															<i class="fa fa-plus"></i> Add script </a>
+									</div>
+								</div>
+								<input type='hidden' name='scr_type' value='<?php echo $this->id?>' />
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<script>
+function addScript()
+{
+	$.ajax({
+				type : 'post',
+				url : '/script/post',
+				data : $('#frm_script').serialize(),
+				success : function(r)
+				{
+					if(r == 'done')
+					{
+						
+						bootbox.alert('The script has been added!', function(){document.location.href = "/script/index/id/<?php echo $this->id?>"});
+					}
+					else 
+					{
+						bootbox.alert(r);
+					}
+				}
+		})
+}
+</script>

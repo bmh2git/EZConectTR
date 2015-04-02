@@ -1,0 +1,161 @@
+<div class='row'>
+	<div class='col-md-2'></div>
+	<div class='col-md-8'>
+		<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption col-sm-6">
+						<i class="fa fa-list font-green-sharp"></i>
+						<span class="caption-subject font-green-sharp bold uppercase">Email Templates</span>
+					</div>
+					<div class="col-sm-6 text-right">
+						<a href='/email-template/add' class="btn blue"><i class='fa fa-plus'></i> Add new template</a>
+					</div>
+					
+					
+				</div>
+				<div class="portlet-body">
+				<div class='text-right'>
+					<div class="btn-group">
+										<a class="btn green-haze btn-circle" href="javascript:;" data-toggle="dropdown">
+										<i class="fa fa-check-circle"></i> <?php echo Application_Model_Module::getModuleName($this->module)?> <i class="fa fa-angle-down"></i>
+										</a>
+										<ul class="dropdown-menu pull-right">
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>)'>
+												Both (All)</a>
+											</li>
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_OSC?>)'>
+												Having <span class="label  label-danger">OSC</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>)'>
+												Having <span class="label label-primary">Secure24</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_ONLY_OSC?>)'>
+												Only <span class="label  label-danger">OSC</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_ONLY_SECURE24?>)'>
+												Only <span class="label  label-primary">Secure24</span> </a>
+											</li>
+											
+											<li>
+												<a href="javascript:;" onclick='setModule(<?php echo Application_Model_Module::MODULE_TYPE_WITH_BOTH?>)'>
+												With Both options
+												</a>
+											</li>
+										</ul>
+								</div>
+								<script>
+								function setModule(mdl)
+								{
+									$.ajax({
+												type : 'post',
+												url : '/script/set-module/module/' + mdl,
+												success : function(r)
+												{
+													document.location.reload();
+												}
+										})
+								}
+								</script>
+				</div>
+				
+					<table class='table table-hover'>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Subject</th>
+								<th>Platform</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php 
+						if(isset($this->emt['rows']) && count($this->emt['rows']))
+						{
+							foreach ($this->emt['rows'] as $emt)
+							{
+							?>
+							<tr>
+								<td><?php echo $emt['emt_name']?></td>
+								<td><?php echo $emt['emt_subject']?></td>
+								<td>
+									<?php 
+													if($emt['emt_module'] == Application_Model_Module::MODULE_TYPE_BOTH)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($emt['emt_module'] == Application_Model_Module::MODULE_TYPE_OSC)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($emt['emt_module'] == Application_Model_Module::MODULE_TYPE_SECURE24)
+													{
+														?>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+								
+								</td>
+								<td>
+									<a class="btn blue btn-xs" href="/email-template/edit/id/<?php echo $emt['emt_id']?>">
+											<i class="fa fa-file-o"></i> Edit
+									</a>
+									
+									<a class="btn red btn-xs" href="javascript:;" onclick='deleteTemplate(<?php echo $emt['emt_id']?>)'>
+											<i class="fa fa-remove"></i> Delete
+									</a>
+									
+															
+															
+								</td>
+							</tr>
+							<?php
+							}
+						}
+						?>
+						</tbody>
+					</table>
+				</div>
+		</div>				
+	</div>
+	<div class='col-md-2'></div>
+</div>
+<script>
+function deleteTemplate(emtId)
+{
+	bootbox.confirm('Are you sure that you want to delete this template',function(r){
+						if(r)
+						{
+							$.ajax({
+										type : 'post',
+										url : '/email-template/delete/emt_id/' + emtId,
+										success : function()
+										{
+											document.location.reload();
+										} 
+								})
+						}
+
+							
+		});
+}
+</script>

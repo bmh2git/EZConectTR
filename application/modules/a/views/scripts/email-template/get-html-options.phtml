@@ -1,0 +1,4 @@
+<option value=0>- Select <?php Application_Model_Module::getModuleName($this->module)?> template -</option>
+<?php 
+	echo App_Form_Select::build($this->eml['rows'], array('key' => 'emt_id', 'value' => 'emt_name' ))
+?>

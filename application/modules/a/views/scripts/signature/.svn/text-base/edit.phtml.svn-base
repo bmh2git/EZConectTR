@@ -1,0 +1,94 @@
+<div class='row'>
+	<div class='col-md-3'>
+	
+	</div>
+	<form method='post' action="" enctype='multipart/form-data' id='frm'>
+		<div class='col-md-6'>
+			<div class="portlet light">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-envelope font-green-haze"></i>
+							<span class="caption-subject bold uppercase font-green-haze">Edit Mail Signature</span>
+							
+						</div>
+						<div class="tools">
+	
+							<a href="javascript:;" class="fullscreen">
+							</a>
+							
+						</div>
+					</div>
+					<div class="portlet-body form-horizontal">
+						
+									<div class="form-group">
+										<label class="col-md-2 control-label">Signature name</label>
+										<div class="col-md-7">
+												<input class='form-control' name='name' placeholder='Signature name' value='<?php echo $this->sgn['sgn_name']?>'>
+													
+											
+										</div>
+									
+									</div>
+						<div class="form-group">
+							<textarea name="signature" id="summernote_1"><?php echo  htmlspecialchars($this->sgn['sgn_content'])?></textarea>
+						</div>
+						<br />
+						
+								<div class="form-actions">
+										<div class="row">
+											<div class="col-md-12 text-right">
+												<a class="btn green" href='javascript:;' onclick='addSignature()'><i class="fa fa-check"></i> Modify signature</a>
+											</div>
+										</div>
+									</div>
+						</div>
+					
+					</div>
+				</div>	
+	</form>
+	<div class='col-md-3'>
+	
+	</div>
+	
+</div>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-summernote/summernote.css">
+<script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+<script>
+$(function(){
+
+	$('#summernote_1').summernote({ mode: 'text/html',htmlMode: true,height: 300,toolbar: [
+	                                                     //[groupname, [button list]]
+	                                                     
+	                                                     ['style', ['bold', 'italic', 'underline', 'clear']],
+	                                                     ['font', ['strikethrough']],
+	                                                     ['fontsize', ['fontsize']],
+	                                                     ['color', ['color']],
+	                                                     ['para', ['ul', 'ol', 'paragraph']],
+	                                                     ['height', ['height']],
+	                                                     ['insert', ['picture']],
+	                                                   ]});
+	
+});
+
+function addSignature()
+{
+	$('#frm').submit();
+	return;
+	$.ajax({
+					type : 'post',
+					url : '/signature/post',
+					data : $('#frm').serialize(),
+					success : function(r)
+					{
+						if(r != 'done')
+						{
+							bootbox.alert(r);
+						}
+						else 
+						{
+							bootbox.alert('Your new signature has been added!', function(){document.location.href = '/signature/';});
+						}
+					}	
+		})
+}
+</script>

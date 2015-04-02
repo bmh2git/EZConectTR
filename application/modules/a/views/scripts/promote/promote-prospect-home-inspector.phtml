@@ -1,0 +1,325 @@
+<?php 
+$redirectSection = $this->p['type'] == Application_Model_Import::IMP_TYPE_LEAD ? 'lead' : 'prospect';
+?>
+<form id="frm_promote" role="form" enctype="multipart/form-data" method='post' action='/promote/post/'>
+<input type='hidden' name='type' value='<?php echo $this->p['type'] ?>' />
+<input type='hidden' name='promote-type' value='<?php echo $this->p['promote-type'] ?>' />	
+<input type='hidden' name='ref_id' value='<?php echo $this->p['ref_id'] ?>' />	
+<div class="row form-horizontal">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Promote to <?php echo Application_Model_Promote::getPartnerTypeName($this->p['promote-type'])?></span>
+							</div>
+							
+							
+						</div>
+						<div class="portlet-body">
+
+						
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Section</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="section" value="<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>" checked> Both
+											</label>
+											
+											<label>
+												<input type="radio" name="section" value="<?php echo Application_Model_Module::MODULE_TYPE_OSC?>">  <span class="label  label-danger">OSC</span>
+											</label>
+											
+											<label>
+												<input type="radio" name="section" value="<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>"> <span class="label label-primary">Secure24</span>
+											</label>
+
+										</div>
+
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Network</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="network" value="in network" checked> In Network
+											</label>
+											
+											<label>
+												<input type="radio" name="network" value="out network"> Out Network
+											</label>
+										</div>
+
+									</div>
+								</div>
+						
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Account Name (Include State)</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="acount_name" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Monthly Lead Volume</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="monthly_lead_volume" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Lead Frequency</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="lead_frequency" class="form-control">
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Account Classification</label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="account_classification">
+												<option>A</option>
+												<option>B</option>
+												<option>C</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Submittal Needs</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="submittal_needs" class="form-control">
+									</div>
+								</div>
+								
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Point Of Contact Name</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="point_of_contact_name" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Email</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="email" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact Number</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="contact_number" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Affiliate Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="affiliate_fee" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Rep Lead Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="rep_lead_fee" class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Make Checks Payable To</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="make_checks_payable_to" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Mailing Address</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="mailing_address" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Performance Reviews</label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="performance_reviews">
+												<option>Monthly</option>
+												<option>Bi-Monthly</option>
+												<option>Quarterly</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Calendar Invite</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="calendar_invite" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Rep Lead Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="rep_lead_fee" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Special Notes</label>
+									<div class="col-md-6">
+
+											<textarea class="form-control" name='special_notes'></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Marketing Materials</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="marketing_materials" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Landing Page</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="landing_page" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="linkedIn" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn Group</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="linkedIn_group" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Facebook</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="facebook" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Logo</label>
+									<div class="col-md-6">
+
+											<input type="file" name='logo'>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 1</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_1'>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 2</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_2'>
+									</div>
+								</div>
+								
+									<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 3</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_3'>
+									</div>
+								</div>
+								
+								
+							<div class="form-group">
+									<div class="col-md-offset-4 col-md-8">
+									
+															<?php 
+															if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+															{
+																?>
+																<input type='hidden' name='next_url' value='/<?php echo $redirectSection?>/process/id/<?php echo $this->p['imp_id']?>' />
+																	<a href="javascript:;" class="btn green" onclick='saveThisEntry()'>
+															<i class="fa fa-save"></i> Save / Next </a>
+																<?php
+															}
+															else 
+															{
+																?>
+																<input type='hidden' name='next_url' value='/<?php echo $redirectSection?>/' />
+																<a href="javascript:;" class="btn green" onclick='saveThisEntry()'>
+															<i class="fa fa-save"></i> Save </a>
+																<?php
+															}
+															?>
+									
+									</div>
+								</div>
+
+						</div>	
+					</div>
+				</div>
+	
+</div>
+					
+</form>
+<script>
+function saveThisEntry()
+{
+	$('#frm_promote').submit();
+	
+}
+
+function goToNext()
+{
+	<?php 
+
+	if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+	{
+	?>
+	bootbox.alert('The entry was saved!', function(){
+		document.location.href="/<?php echo $redirectSection?>/process/id/<?php echo $this->p['imp_id']?>"
+	});
+	<?php 
+	}
+	?>
+}
+</script>

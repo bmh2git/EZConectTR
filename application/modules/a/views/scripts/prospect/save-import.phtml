@@ -1,0 +1,18 @@
+<?php 
+if(empty($this->error))
+{
+?>
+
+document.location.href = '/prospect/process/id/<?php echo $this->imp_id?>'
+<?php 
+}
+else 
+{
+?>
+bootbox.alert("<?php echo $this->error?>", function(result) 
+{
+	
+});
+<?php 
+}
+?>

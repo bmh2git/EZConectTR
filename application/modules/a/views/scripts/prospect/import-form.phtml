@@ -1,0 +1,21 @@
+<?php 
+$onload = '';
+if($this->error != '')
+{
+	$onload = "parent.bootbox.alert('{$this->error}')";
+}
+if($this->csvTmpId  > 0 )
+{
+	$onload = "parent.loadCsv('{$this->csvTmpId}')";
+}
+?>
+<html>
+<head>
+</head>
+<body onload="<?php echo $onload?>">
+<form method='post' name='logo-form' enctype='multipart/form-data'>
+	<input type='file' onchange='document.logo-form.submit()' name='csvfile'/>
+</form>
+</body>
+
+</html>

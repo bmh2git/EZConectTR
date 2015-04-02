@@ -1,0 +1,495 @@
+<?php 
+$redirectSection = $this->p['type'] == Application_Model_Import::IMP_TYPE_LEAD ? 'lead' : 'prospect';
+?>
+<form id="frm_promote" role="form" enctype="multipart/form-data" method='post' action='/promote/post/'>
+<input type='hidden' name='type' value='<?php echo $this->p['type'] ?>' />
+<input type='hidden' name='promote-type' value='<?php echo $this->p['promote-type'] ?>' />	
+<input type='hidden' name='ref_id' value='<?php echo $this->p['ref_id'] ?>' />	
+<div class="row form-horizontal">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Promote to <?php echo Application_Model_Promote::getPartnerTypeName($this->p['promote-type'])?></span>
+							</div>
+							
+							
+						</div>
+						<div class="portlet-body">
+
+						
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Platform</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_BOTH){?>checked<?php }?>> Both
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_OSC?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_OSC){?>checked<?php }?>>  <span class="label  label-danger">OSC</span>
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_SECURE24){?>checked<?php }?>> <span class="label label-primary">Secure24</span>
+											</label>
+
+										</div>
+
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Network</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="network" id='in_network' value="in network"> In Network
+											</label>
+											
+											<label>
+												<input type="radio" name="network" id='not_in_network' value="out network"> Out Network
+											</label>
+											<label>
+												<button type="button" class="btn blue btn-sm" onclick='findIfIsInNetwork()'>Try To Determine</button>
+											</label>
+										</div>
+
+									</div>
+								</div>
+						
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Company Name <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="Name Of Company"><i class='fa fa-info-circle-o'></i></a>
+									</label>
+									<div class="col-md-6">
+
+											<input type="text" value="<?php echo $this->data[$this->tableKey.'agency']?>" name="company_name" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Monthly Lead Volume <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="How many leads will they send per month?"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="monthly_lead_volume" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Lead Frequency <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="How frequent will they send leads, eg, adhoc"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="lead_frequency" class="form-control">
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Account Classification <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="Numbers Coming Soon"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="account_classification">
+												<option>A</option>
+												<option>B</option>
+												<option>C</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Submittal Needs  <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="How will they send us leads?"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+											<div class="checkbox-list">
+												<label>
+													<input type="checkbox" name="submittal_needs[]" value='Brochure'> Brochure
+												</label>
+												
+												<label>
+													<input type="checkbox" name="submittal_needs[]" value='Flyers'> Flyers
+												</label>
+												
+												<label>
+													<input type="checkbox" name="submittal_needs[]" value='Website'> Website
+												</label>
+												
+												<label>
+													<input type="checkbox" name="submittal_needs[]" value='App'> App
+												</label>
+												
+												<label>
+													<input type="checkbox" name="submittal_needs[]" value='Other' onclick='checkForOtherField(this)'> Other
+												</label>
+												
+												<label>
+													<input id='submittal_needs_input' type="text" name="submittal_needs[]" class='form-control' placeholder='Type submittal needs' style='display:none'>
+												</label>
+												
+											</div>	
+									</div>
+								</div>
+								
+								<script>
+								function checkForOtherField(e)
+								{
+									if($(e).prop('checked'))
+									{
+										$('#submittal_needs_input').show();
+									}
+									else 
+									{
+										$('#submittal_needs_input').hide();
+									}		
+						
+								}
+								</script>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Point Of Contact Name <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="Who will be the point of contact for the Company"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="point_of_contact_name" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Email</label>
+									<div class="col-md-6">
+
+											<input type="text" value="<?php echo $this->data[$this->tableKey.'email']?>" name="email" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact Number</label>
+									<div class="col-md-6">
+
+											<input type="text" value="<?php echo $this->data[$this->tableKey.'phone']?>" name="contact_number" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Affiliate Fee <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="How do they want to be paid for being affiliate?"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<div class="radio-list">
+												<label>
+													<input type="radio" name="affiliate_fee" value='none'> None
+												</label>
+												
+												<label>
+													<input type="radio" name="affiliate_fee" value='Charity'> Charity
+												</label>
+												
+												<label>
+													<input type="radio" name="affiliate_fee" value='Gift Card'> Gift Card
+												</label>
+												
+												<label>
+													<input type="radio" name="affiliate_fee" value='HON'> HON
+												</label>
+	
+											</div>	
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Referral fee required <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="Do they require a fee?"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<div class="radio-list">
+												<label>
+													<input type="radio" name="referral_fee_required" value='No' onclick='$("#fee_form").hide()'> No
+												</label>
+													<label>
+														<input type="radio" name="referral_fee_required" value='Yes' onclick='$("#fee_form").show()'> Yes
+													</label>
+													
+													<div class="radio-list" id='fee_form' style='display:none; padding-left:10px'>
+														<label>
+															<input type='radio' name='fee_type' value='Monthly Real Estate Referral Fee' onclick='showOption(1)'/> Monthly Real Estate Referral Fee
+														</label>
+														
+														<label>
+															<input type='radio' name='fee_type' value='Annual Real Estate'  onclick='showOption(2)'/> Annual Real Estate
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='OSC Referral Plan'  onclick='showOption(3)'/> OSC Referral Plan
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='Affiliate fee per alarm install'  onclick='showOption(4)'/> Affiliate fee per alarm install
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='Pay Per Lead'  onclick='showOption(5)'/> Pay Per Lead
+														</label>
+														
+														<div style='padding-left:10px'>
+															<select class='form-controll fee' style='display:none' id='fee_option_1' name='<?php echo Ez_Interface_Form::sanitizeInput('Monthly Real Estate Referral Fee Value');?>'>
+																<option>100</option>
+																<option>150</option>
+																<option>200</option>
+																<option>250</option>
+																<option>300</option>
+																<option>350</option>
+																<option>400</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_2' name='<?php echo Ez_Interface_Form::sanitizeInput('Annual Real Estate Value') ?>'>
+																<option>500</option>
+																<option>1,000</option>
+																<option>1,500</option>
+																<option>2,000</option>
+																<option>2,500</option>
+																<option>3,000</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_3' name='<?php echo Ez_Interface_Form::sanitizeInput('OSC Referral Plan Value') ?>'>
+																<option>Type A</option>
+																<option>Type B</option>
+																<option>Type C</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_4' name='<?php echo Ez_Interface_Form::sanitizeInput('Affiliate fee per alarm install Value'); ?>'>
+																<option>$ 200</option>
+																<option>100/100</option>
+																<option>$ 300</option>
+																<option>Zero</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_5' name='<?php echo Ez_Interface_Form::sanitizeInput('Pay Per Lead'); ?>'>
+																<option>$ 1</option>
+																<option>$ 2</option>
+																<option>$ 5</option>
+																<option>$ 8</option>
+																<option>$ 10</option>
+																<option>$ 12</option>
+																
+															</select>
+
+														</div>
+														
+														
+													</div>
+											</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Make Checks Payable To</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="make_checks_payable_to" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Mailing Address</label>
+									<div class="col-md-6">
+
+											<input type="text" id='mailling_address' value="<?php echo $this->data[$this->tableKey.'address']?>" name="mailing_address" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Performance Reviews <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="How often we review the account"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="performance_reviews">
+												<option>Monthly</option>
+												<option>Bi-Monthly</option>
+												<option>Quarterly</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Calendar Invite</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="calendar_invite" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Rep Lead Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="rep_lead_fee" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Special Notes</label>
+									<div class="col-md-6">
+
+											<textarea class="form-control" name='special_notes'></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Marketing Materials <a class="btn tooltips" data-container="body" data-placement="right" data-original-title="Do they need brochures, a landing page, etc"><i class='fa fa-info-circle'></i></a></label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="marketing_materials" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Landing Page</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="landing_page" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="linkedIn" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn Group</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="linkedIn_group" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Facebook</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="facebook" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Logo</label>
+									<div class="col-md-6">
+
+											<input type="file" name='logo'>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 1</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_1'>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 2</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_2'>
+									</div>
+								</div>
+								
+									<div class="form-group">
+									<label class="col-md-4 control-label" >Picture 3</label>
+									<div class="col-md-6">
+
+											<input type="file" name='pic_3'>
+									</div>
+								</div>
+								
+								
+							<div class="form-group">
+									<div class="col-md-offset-4 col-md-8">
+									
+															<?php 
+															if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+															{
+																?>
+																<input type='hidden' name='next_url' value='/<?php echo $redirectSection?>/process/id/<?php echo $this->p['imp_id']?>' />
+																	<a href="javascript:;" class="btn green" onclick='saveThisEntry()'>
+															<i class="fa fa-save"></i> Save / Next </a>
+																<?php
+															}
+															else 
+															{
+																?>
+																<input type='hidden' name='next_url' value='/<?php echo $redirectSection?>/' />
+																<a href="javascript:;" class="btn green" onclick='saveThisEntry()'>
+															<i class="fa fa-save"></i> Save </a>
+																<?php
+															}
+															?>
+									
+									</div>
+								</div>
+
+						</div>	
+					</div>
+				</div>
+	
+</div>
+					
+</form>
+<script>
+function findIfIsInNetwork()
+{
+
+	$.ajax({
+				type : 'post',
+				url : '/promote/find-network',
+				data : {address : $('#mailling_address').val()},
+				dataType : 'json',
+				success : function(r)
+				{
+					if(r.error == 0)
+					{
+						bootbox.alert(r.message);
+						if(r.js)
+						{
+							eval(r.js);
+						}
+						return;
+					}
+					if(!r.error)
+					{
+						alert('Invalid request');
+						return;
+					}
+
+					if(r.error == 1)
+					{
+						bootbox.alert(r.message);
+						return;
+					}
+				}
+				
+		})
+}
+function showOption(id)
+{
+	$('.fee').hide();
+	$('#fee_option_' + id).show();
+}
+function saveThisEntry()
+{
+	$('#frm_promote').submit();
+
+}
+
+function goToNext()
+{
+	<?php 
+
+	if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+	{
+	?>
+	bootbox.alert('The entry was saved!', function(){
+		document.location.href="/<?php echo $redirectSection?>/process/id/<?php echo $this->p['imp_id']?>"
+	});
+	<?php 
+	}
+	?>
+}
+</script>

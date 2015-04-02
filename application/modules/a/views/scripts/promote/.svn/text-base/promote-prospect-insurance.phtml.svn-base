@@ -1,0 +1,307 @@
+<form id="frm_prospect" role="form">	
+<div class="row form-horizontal">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Promote to Home Inspector</span>
+							</div>
+							
+							
+						</div>
+						<div class="portlet-body">
+
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Account Name (Include State)</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Monthly Lead Volume</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Account Class Type</label>
+									<div class="col-md-6">
+
+											<select class="form-control">
+												<option>A</option>
+												<option>B</option>
+												<option>C</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Submittal Needs</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Lead Frequency</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Point Of Contact Name</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Email</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact Number</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Affiliate Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+									<div class="form-group">
+									<label class="col-md-4 control-label" >W-9 </label>
+									<div class="col-md-6">
+
+											<input type="file"  name="prs_phone">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Make Checks Payable To</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Mailing Address</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Performance Reviews</label>
+									<div class="col-md-6">
+
+											<select class="form-control">
+												<option>Monthly</option>
+												<option>Bi-Monthly</option>
+												<option>Quarterly</option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Calendar Invite</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Rep Lead Fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Special Notes</label>
+									<div class="col-md-6">
+
+											<textarea class="form-control"></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Marketing Materials</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Landing Page</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >LinkedIn Group</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Effective Date</label>
+									<div class="col-md-6">
+
+											<input type="text"  name="prs_date" class="form-control" id="prs_date">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Real Estate Office Contact Name</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact`s Number</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agency" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact`s Email</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >How Are They Submitting Referrals</label>
+									<div class="col-md-6">
+
+											<textarea class="form-control"></textarea>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">What days of the week will they be sending them</label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="prs_call_attempt" multiple>
+												<option>Sunday</option>
+												<option>Monday</option>
+												<option>Tuesday</option>
+												<option>Wednesday</option>
+												<option>Thursdau</option>
+												<option>Friday</option>
+												<option>Saturday</option>
+											</select>
+											<span class="help-block">
+											Ctrl+ Click for selecting many. </span>	
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >How many Buying side can we expect monthly</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Any agents on the opt out list or special concerns</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Any compensation plan established</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Vendor fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Statement Of Work </label>
+									<div class="col-md-6">
+
+											<input type="file"  name="prs_phone">
+									</div>
+								</div>
+
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Facebook</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+
+						</div>	
+					</div>
+				</div>
+	
+</div>
+					
+</form>

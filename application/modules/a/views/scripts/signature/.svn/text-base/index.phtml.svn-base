@@ -1,0 +1,102 @@
+<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-md-6">
+								<i class="fa fa-list font-green-sharp"></i>
+								
+								<span class="caption-subject font-green-sharp bold uppercase">List Signatures</span>
+								
+								
+							</div>
+							<div class="col-sm-6 text-right">
+											<button class="btn blue" onclick="document.location.href='/signature/add/'">
+												Add New Signature <i class="fa fa-plus"></i>
+											</button>
+
+									
+								
+							</div>
+						</div>
+						<div class="portlet-body">
+
+							
+							<table class="table table-striped table-bordered table-hover" id="data-table">
+									<thead>
+								<tr>
+									
+									<th>
+										 Signature Name
+									</th>
+									
+									
+									<th>
+										 Actions
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$cnt = 1;
+								if(isset($this->data['rows']) && count($this->data['rows']))
+								{
+									foreach ($this->data['rows'] as $r)
+									{
+										?>
+										<tr>
+											<td>
+												<?php echo $r['sgn_name']?>
+											</td>
+											
+											
+											<td>
+												<a href="/signature/edit/id/<?php echo $r['sgn_id']?>" class="btn blue btn-xs">
+															<i class="fa fa-file-o"></i> Edit </a>
+															<a href="javascript:;" onclick='deleteSgn(<?php echo $r['sgn_id']?>)' class="btn red btn-xs">
+															<i class="fa fa-remove"></i> Delete </a>
+											</td>
+											
+											
+											
+										</tr>
+											
+										<?php
+									}
+								}
+								?>
+							</tbody>
+								
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+			
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script>
+function deleteSgn(id)
+{
+	bootbox.confirm('Are you sure ?', function(r){
+			if(r)
+			{
+				$.ajax({
+							type : 'post',
+							url : '/signature/delete/id/' + id,
+							success : function()
+							{
+								document.location.reload();
+							}
+					})
+			}
+		})
+}
+$(function(){
+	$('#data-table').dataTable();
+});
+</script>

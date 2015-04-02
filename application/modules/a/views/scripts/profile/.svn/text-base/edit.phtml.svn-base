@@ -1,0 +1,77 @@
+<div class='row'>
+	<div class='col-md-2'>
+	
+	</div>
+	<div class='col-md-8'>
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-pencil font-green-sharp"></i>
+					<span class="caption-subject font-green-sharp bold uppercase">Edit Profile</span>
+				</div>
+				
+				
+			</div>
+			<div class="portlet-body">
+					
+					<form  role="form" id='frm' class='form-horizontal'>
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Your name</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='full_name' value="<?php echo $this->adm['adm_fullname']; ?>"/>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Phone Number</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='phone_number' value="<?php echo $this->adm['adm_phone']; ?>"/>
+									</div>
+								</div>
+								
+								
+								
+								
+								
+								<div class="form-group">
+									<div class="col-md-offset-4 col-md-8">
+									
+										<a href="javascript:;" class="btn green" onclick='doFormAction()'>
+															<i class="fa fa-save"></i> Edit profile  </a>
+									</div>
+								</div>
+								
+					</form>
+			</div>
+		</div>			
+	</div>
+	
+	<div class='col-md-2'>
+	
+	</div>
+</div>
+<script>
+function doFormAction()
+{
+	$.ajax({
+				type : 'post',
+				data : $('#frm').serialize(),
+				url : '/profile/post-edit',
+				success : function(r)
+				{
+					if(r == 'done')
+					{
+						bootbox.alert('Your profile has been changed!', function(){
+									
+							});
+					}
+					else 
+					{
+						bootbox.alert(r);
+					}
+				}
+		})	
+}
+</script>

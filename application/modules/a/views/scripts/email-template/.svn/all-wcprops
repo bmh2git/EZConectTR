@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ezconect/!svn/ver/63/application/modules/a/views/scripts/email-template
+END
+edit.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/ezconect/!svn/ver/54/application/modules/a/views/scripts/email-template/edit.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/ezconect/!svn/ver/63/application/modules/a/views/scripts/email-template/index.phtml
+END
+add.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ezconect/!svn/ver/54/application/modules/a/views/scripts/email-template/add.phtml
+END
+get-html-options.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ezconect/!svn/ver/54/application/modules/a/views/scripts/email-template/get-html-options.phtml
+END

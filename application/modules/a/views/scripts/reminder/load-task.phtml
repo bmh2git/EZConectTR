@@ -1,0 +1,15 @@
+
+<a href="javascript:;" class="btn btn-lg red" onclick='markAsDone(<?php echo $this->ntf['ntf_id']?>)'>
+		<i class="fa fa-check"></i> Mark as done 
+</a>
+<?php 
+if($this->showLead)
+{
+require_once 'types/lead.php';
+}
+if($this->showPrs)
+{
+require_once 'types/prs.php';
+}
+
+?>

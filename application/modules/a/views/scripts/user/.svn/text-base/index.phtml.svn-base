@@ -1,0 +1,187 @@
+
+<script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+
+<div class="row ">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-list font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">List <?php if(isset($this->p['inactive'])){?>inactive<?php }else{?>active<?php }?> users</span>
+							</div>
+							<div class="col-sm-6 text-right">
+								<?php 
+								if(isset($this->inactive) && $this->inactive> 0 )
+								{
+									?>
+									<a href='/user/index/inactive/true' class="btn default"><i class='fa fa-eye'></i> Inactive users (<?php echo $this->inactive ?>)</a>
+									<?php
+								}
+								?>
+								
+								<?php 
+								if(isset($this->active) && $this->active > 0 )
+								{
+									?>
+									<a href='/user/' class="btn default"><i class='fa fa-eye'></i> Active users (<?php echo $this->active ?>)</a>
+									<?php
+								}
+								?>
+								
+								<a href='/user/add' class="btn blue"><i class='fa fa-plus-circle'></i> Add new user</a>
+							</div>
+							
+						</div>
+						<style>
+						.dropdown-menu {z-index:1000 !important}
+						</style>
+						<div class="portlet-body" style='min-height:1000px'>
+							<div class="table-scrollable">
+								<table class="table">
+								<thead>
+								<tr>
+									<th class='text-center'>
+										 #
+									</th>
+									<th  class='text-center'>
+										 Full Name
+									</th>
+									<th  class='text-center'>
+										 Username
+									</th>
+									<th class='text-center'>
+										 Email
+									</th>
+									<th  class='text-center'>
+										 Actions
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								<?php 
+								$cnt = 0;
+								if(isset($this->user['rows']) && count($this->user['rows']))
+								{
+									foreach ($this->user['rows'] as $user)
+									{
+										$cnt++;
+									?>
+								<tr id='tr_main_user_<?php echo $user['adm_id']?>'>
+									<td  class='text-center'><?php echo $cnt;?></td>
+									<td  class='text-center'><?php echo $user['adm_fullname'];?></td>
+									<td class='text-center' id='tr_user_<?php echo $user['adm_id']?>'><?php echo $user['adm_user'];?></td>
+									<td class='text-center'><?php echo $user['adm_email'];?></td>
+									<td class='text-center'>
+										<div class='col-md-7'>
+										<a href='javascript:;' onclick='changePassword(<?php echo $user['adm_id']?>)' class="btn purple btn-sm"><i class='fa fa-lock'></i> Change password</a>
+										<a href='/user/details/id/<?php echo $user['adm_id']?>' class="btn green btn-sm"><i class='fa fa-pencil'></i> Details</a>
+										<?php 
+										if($user['adm_active'] == 1)
+										{
+										?>
+										<a href='javascript:;' class="btn red btn-sm" onclick='deactivateUser(<?php echo $user['adm_id']?>)'><i class='fa fa-remove'></i> Deactivate</a>
+										<?php 
+										}
+										else 
+										{
+										?>
+										<a href='javascript:;' class="btn red btn-sm" onclick='activateUser(<?php echo $user['adm_id']?>)'><i class='fa fa-arrow-circle-up'></i> Reactivate</a>
+										<?php 
+										}
+										?>
+										</div>
+										<div class='col-md-3'>
+											<select class='form-control' onchange='bootbox.confirm("Are you sure you want to move this user?", function(){})'>
+												<option>Move to ...</option>
+												<option>- Move to research/option>
+												<option>- Business Analyst</option>
+												<option>- Appointment Setter</option>
+												<option>- PIS</option>
+										</select>
+										</div>
+										
+										
+									</td>
+								</tr>	
+									<?php
+									}
+								}
+								?>
+								</tbody>
+								</table>
+							</div>
+
+						</div>	
+					</div>
+				</div>
+			</div>	
+
+			
+<script>
+								
+function deactivateUser(admId)
+{
+	bootbox.confirm('Are you sure that you want to <b>deactivate</b> the user ' + $('#tr_user_' + admId).html() +' ?',function(r){
+				if(r)
+				{
+					$.ajax({
+								type  :'post',
+								url : '/user/deactivate/id/' + admId,
+								success : function(r)
+								{
+									if(r == 'done')
+									{
+										document.location.reload();
+									}
+									else 
+									{
+										bootbox.alert(r);
+									}	
+								}
+						})
+				}
+		} )
+}
+function activateUser(admId)
+{
+	bootbox.confirm('Are you sure that you want to <b>reactivate</b> the user ' + $('#tr_user_'+admId).html() +' ?',function(r){
+				if(r)
+				{
+					$.ajax({
+								type  :'post',
+								url : '/user/activate/id/' + admId,
+								success : function(r)
+								{
+									if(r == 'done')
+									{
+										document.location.reload();
+									}
+									else 
+									{
+										bootbox.alert(r);
+									}	
+								}
+						})
+				}
+		} )
+}
+
+
+function changePassword(admId)
+{
+	userName = $('#tr_user_'+admId).html();
+	bootbox.prompt('Chose new password for ' + userName, function(r){
+				$.ajax({
+							type  : 'post',
+							url  : '/user/change-passwd/usr_id/' + admId,
+							data : {},
+							success : function(r)
+							{
+								bootbox.alert('The new password for <b>'+userName+'</b> has been set!');
+							}
+					})
+		})
+}
+</script>			
+					

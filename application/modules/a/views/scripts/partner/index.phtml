@@ -1,0 +1,200 @@
+<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							
+									All Partners
+							
+						</div>
+						<div class="portlet-body">
+
+
+							<table class="table table-striped table-bordered table-hover" id="data-table">
+									<thead>
+								<tr>
+									
+									<th>
+										 Name
+									</th>
+									<th>
+										 Agency
+									</th>
+									<th>
+										 Phone#
+									</th>
+									
+									
+									<th>
+										 Email
+									</th>
+
+									<th>
+										 Partner Type
+									</th>
+									<th>
+										 Promoted from
+									</th>
+									<th>
+										Platform
+									</th>
+									<?php 
+									if($this->with_adm_name)
+									{
+									?>
+									<th>
+									By User
+									</th>
+									<?php 
+									}
+									?>
+									<th>
+										 Details
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$cnt = 1;
+								if(isset($this->prt['rows']) && count($this->prt['rows']))
+								{
+									foreach ($this->prt['rows'] as $r)
+									{
+										if($r['prt_ref_type'] == Application_Model_Import::IMP_TYPE_PROSPECTS)
+										{
+											$tableKey = 'prs_';
+										}
+										elseif($r['prt_ref_type'] == Application_Model_Import::IMP_TYPE_LEAD)
+										{
+											$tableKey = 'lead_';
+										}
+										?>
+										<tr>
+											<td>
+												<?php echo $r[$tableKey.'agent']?>
+											</td>
+												
+											<td>
+												<?php echo $r[$tableKey.'agency']?>
+											</td>
+											
+											<td>
+												<?php echo $r[$tableKey.'phone']?>
+											</td>
+											
+											<td>
+												<?php echo $r[$tableKey.'email']?>
+											</td>
+											<td>
+												<?php 
+												echo Application_Model_Promote::getPartnerTypeName($r['prt_type']);
+												?>
+											</td>
+											<td>
+												<?php 
+												if($r['prt_ref_type'] == Application_Model_Import::IMP_TYPE_PROSPECTS)
+												{
+												?>
+												<span class="label label-sm label-warning">
+													Prospect
+												</span>
+												<?php 
+												}
+												else 
+												{
+												?>
+												<span class="label label-sm label-warning">
+													Lead
+												</span>
+												<?php 
+												}
+												?>
+												
+											</td>
+											<td>
+												<?php 
+													if($r[$tableKey.'module'] == Application_Model_Module::MODULE_TYPE_BOTH)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r[$tableKey.'module'] == Application_Model_Module::MODULE_TYPE_OSC)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r[$tableKey.'module'] == Application_Model_Module::MODULE_TYPE_SECURE24)
+													{
+														?>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+											</td>
+											<?php
+											if($this->with_adm_name)
+												{
+												?>
+												<td>
+												<?php echo $r['adm_user'];?>
+												</td>
+												<?php 
+												}
+											?>
+											<td>
+											<?php 
+											if($r['prt_type'] >= 10)
+											{
+												?>
+												<a href="javascript:;" class="btn blue btn-xs" onclick='bootbox.alert("Not implemented for clients - time was too short!")'>
+															<i class="fa fa-eye"></i> Details </a>
+												<?php
+											}
+	
+											else 
+											{
+												?>
+												<a href="/partner/details/id/<?php echo $r['prt_id']?>" class="btn blue btn-xs">
+															<i class="fa fa-eye"></i> Details </a>
+												<?php
+											}
+											?>
+												
+											</td>
+											
+											
+											
+										</tr>
+											
+										<?php
+									}
+								}
+								?>
+							</tbody>
+								
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+			
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script>
+$(function(){
+	$('#data-table').dataTable();
+});
+</script>

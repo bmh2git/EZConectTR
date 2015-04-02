@@ -1,0 +1,200 @@
+<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-md-6">
+								<i class="fa fa-list font-green-sharp"></i>
+								<?php 
+								if(isset($this->imp['imp_name']))
+								{
+									?>
+									<span class="caption-subject font-green-sharp bold uppercase">Leads processed for file <?php echo $this->imp['imp_name']?> </span>
+									</div>
+									<div class="col-sm-6 text-right">
+											<a class="btn btn-default" href="/lead/list-import/"><i class="fa fa-chevron-circle-left"></i> Back to imports list</a>
+											<a class="btn default" href="/lead/"><i class="fa fa-chevron-circle-left"></i> Back to all Leads</a>
+
+									<?php
+								}
+								else 
+								{
+								?>
+								<span class="caption-subject font-green-sharp bold uppercase">All Leads</span>
+								<?php 
+								}
+								?>
+								
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+						<?php 
+						if(!isset($this->imp['imp_name']))
+						{
+						?>
+							<div class="table-toolbar">
+								<div class="row">
+									<div class="col-md-12 text-right">
+										<div class="btn-group">
+											<button onclick='document.location.href="/lead/add-import"' class="btn green">
+												Add New Import <i class="fa fa-plus"></i>
+											</button>
+											
+										</div>
+										
+										<div class="btn-group">
+											<button onclick='document.location.href="/lead/add"' class="btn blue">
+												Add New Lead <i class="fa fa-plus"></i>
+											</button>
+											
+										</div>
+										
+										
+									</div>
+								</div>
+							</div>
+							<?php 
+							}
+							?>
+							<table class="table table-striped table-bordered table-hover" id="data-table">
+									<thead>
+								<tr>
+									
+									<th>
+										 Name
+									</th>
+									<th>
+										 Agency
+									</th>
+									<th>
+										 Phone#
+									</th>
+									<th>
+										 Current Step Due Date
+									</th>
+									
+									<th>
+										 Email
+									</th>
+									
+									<th>
+										 Disposition
+									</th>
+									
+									<th>
+										 Status
+									</th>
+									<th>
+										 Platform
+									</th>
+									
+									<th>
+										 Edit
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$cnt = 1;
+								if(isset($this->data['rows']) && count($this->data['rows']))
+								{
+									foreach ($this->data['rows'] as $r)
+									{
+										?>
+										<tr>
+											<td>
+												<?php echo $r['lead_agent']?>
+											</td>
+												
+											<td>
+												<?php echo $r['lead_agency']?>
+											</td>
+											
+											<td>
+												<?php echo $r['lead_phone']?>
+											</td>
+											<td>
+												<?php 
+												echo $r['lead_due_date'] != '0000-00-00' ? App_Date::fromMysqlDate($r['lead_due_date']) : ' - ';
+												?>
+											</td>
+											
+											
+											
+											<td>
+												<?php echo $r['lead_email']?>
+											</td>
+											<td>
+												<?php echo $r['dsp_name']?>
+											</td>
+											<td>
+												<span class="label label-sm label-warning">
+													<?php 
+													echo Application_Model_Imported::$status[$r['lead_status']];
+													?>
+												</span>
+											</td>
+											
+											<td>
+												<?php 
+													if($r['lead_module'] == Application_Model_Module::MODULE_TYPE_BOTH)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r['lead_module'] == Application_Model_Module::MODULE_TYPE_OSC)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r['lead_module'] == Application_Model_Module::MODULE_TYPE_SECURE24)
+													{
+														?>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+											</td>
+											
+											<td>
+												<a href="/lead/edit/id/<?php echo $r['lead_id']?>" class="btn blue btn-xs">
+															<i class="fa fa-file-o"></i> Edit </a>
+											</td>
+											
+											
+											
+										</tr>
+											
+										<?php
+									}
+								}
+								?>
+							</tbody>
+								
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+			
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script>
+$(function(){
+	$('#data-table').dataTable();
+});
+</script>

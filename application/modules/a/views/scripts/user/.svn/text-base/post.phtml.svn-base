@@ -1,0 +1,37 @@
+<?php 
+if(!isset($this->error))
+{
+?>
+
+bootbox.dialog({
+message : "The user '<?php echo $this->data['user']?>' has been added to the system" , 
+buttons : {
+	1 : {
+	
+				"label" : "Add another",
+				className: "red",
+				
+			"callback": function() {
+		document.location.href = '/user/add'
+	}
+	},
+	2 : {
+	"label" : "Back to users",
+	"callback": function() {
+		document.location.href='/user/'
+	}
+}
+} 
+});
+<?php 
+}
+else 
+{
+?>
+bootbox.alert("<?php echo $this->error?>", function(result) 
+{
+	
+});
+<?php 
+}
+?>

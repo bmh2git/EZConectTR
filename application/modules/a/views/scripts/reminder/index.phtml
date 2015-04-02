@@ -1,0 +1,143 @@
+<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN TODO SIDEBAR -->
+					<div class="todo-sidebar">
+						<div class="portlet light">
+							<div class="portlet-title">
+								<div data-target=".todo-project-list-content" data-toggle="collapse" class="caption">
+									<span class="caption-subject font-green-sharp bold uppercase">Reminders by day </span>
+									
+								</div>
+								
+							</div>
+							<div class="portlet-body todo-project-list-content" style="height: auto;">
+								<div class="todo-project-list">
+									<ul class="nav nav-pills nav-stacked">
+										<?php 
+										if(count($this->days))
+										{
+											foreach ($this->days as $day)
+											{
+												$active = false;
+												if($day['date'] == $this->date)
+												{
+													$active = true;
+												}
+								
+												?>
+												<li <?php if($active){?>class="active"<?php }?>>
+											<a href="/reminder/index/?date=<?php echo $day['date']?>">
+											<span class="badge badge-success <?php if($active){?>badge-active<?php }?>"> <?php echo $day['cnt']?> </span> <?php echo $day['date']?> </a>
+										</li>
+												<?php
+											}
+										}
+										?>
+										
+										<!--  
+										<li class="active">
+											<a href="javascript:;">
+											<span class="badge badge-success badge-active"> 3 </span> GlobalEx System </a>
+										</li>
+										-->
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END TODO SIDEBAR -->
+					<!-- BEGIN TODO CONTENT -->
+					<div class="todo-content">
+						<div class="portlet light">
+							<!-- PROJECT HEAD -->
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="icon-bar-chart font-green-sharp hide"></i>
+									<span class="caption-helper">Reminders for date :</span> &nbsp; <span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->date?></span>
+								</div>
+								<div class="actions">
+									
+								</div>
+							</div>
+							<!-- end PROJECT HEAD -->
+							<div class="portlet-body">
+								<div class="row">
+									<div class="col-md-5 col-sm-4">
+										<div class="scroller" style="max-height: 800px;" data-always-visible="0" data-rail-visible="0" data-handle-color="#dae3e7">
+											
+											<?php 
+											if(count($this->ntfs['rows']))
+											{
+												foreach ($this->ntfs['rows'] as $ntf)
+												{
+												$time = strtotime($ntf['ntf_date']);	
+												
+											?>
+											<div class="todo-tasklist" onclick='loadTask(<?php echo $ntf['ntf_id']?>)'>
+												<div class="todo-tasklist-item todo-tasklist-item-border-green">
+													<img class="todo-userpic pull-left" src="/assets/admin/layout/img/avatar4.jpg" width="27px" height="27px">
+													<div class="todo-tasklist-item-title">
+														 <?php echo date('H:i',$time)?>
+													</div>
+													<div class="todo-tasklist-item-text">
+														 <?php 
+														 echo App_Word::renderText($ntf['ntf_note']);
+														 ?>
+													</div>
+													<div class="todo-tasklist-controls pull-left">
+														<span class="todo-tasklist-date"><i class="fa fa-calendar"></i> <?php echo date("M d Y", $time)?> </span>
+														<span class="todo-tasklist-badge badge badge-roundless">Reminder</span>
+													</div>
+												</div>
+
+												
+											</div>
+											<br />
+											<?php 
+												}
+											}
+											?>
+										</div>
+									</div>
+									<div class="todo-tasklist-devider">
+									</div>
+									<div class="col-md-7 col-sm-8" style='height:1100px'>
+										
+											<div id='task-content'>
+												&nbsp;
+											</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END TODO CONTENT -->
+				</div>
+			</div>
+			
+<link rel="stylesheet" type="text/css" href="/assets/admin/pages/css/todo.css"/>
+<script>
+function markAsDone(ntfId)
+{
+	$.ajax({
+		type : 'post',
+		url : '/reminder/done/id/' + ntfId,
+		success : function(r)
+		{
+			bootbox.alert('The task is marked as complete!', function(){ document.location.reload() });
+		}
+})
+}
+function loadTask(ntfId)
+{
+	$.ajax({
+				type : 'post',
+				url : '/reminder/load-task/id/' + ntfId,
+				success : function(r)
+				{
+					$('#task-content').html(r);
+				}
+		})
+}
+</script>			

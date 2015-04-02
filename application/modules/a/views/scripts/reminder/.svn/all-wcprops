@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/ezconect/!svn/ver/90/application/modules/a/views/scripts/reminder
+END
+load-task.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/ezconect/!svn/ver/19/application/modules/a/views/scripts/reminder/load-task.phtml
+END
+no-reminders.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/ezconect/!svn/ver/18/application/modules/a/views/scripts/reminder/no-reminders.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/ezconect/!svn/ver/19/application/modules/a/views/scripts/reminder/index.phtml
+END

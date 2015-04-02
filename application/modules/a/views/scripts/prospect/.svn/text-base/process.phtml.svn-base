@@ -1,0 +1,486 @@
+<?php 
+if(!isset($this->impd['impd_id']))
+{
+?>
+You have processed all the entries for this file!
+<?php 
+return;
+}
+?>
+<form  role="form" id='frm_prospect'>	
+<div class="row form-horizontal">
+				<div class="col-md-8">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Edit entry</span>
+							</div>
+							<div class="col-sm-6 text-right">
+								<a href='/prospect/' class="btn default"><i class='fa fa-chevron-circle-left'></i> View all</a>
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Platform</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="s_module" checked> Both
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_OSC?>" onclick='switchTab("tab_script_for_osc")'>  <span class="label  label-danger">OSC</span>
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>"  onclick='switchTab("tab_script_for_secure24")'> <span class="label label-primary">Secure24</span>
+											</label>
+
+										</div>
+
+									</div>
+								</div>
+								<script>
+								function switchTab(tab)
+								{
+									 $('a[href="#' + tab + '"]').click();
+								
+								}
+								</script>
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Date</label>
+									<div class="col-md-6">
+
+											<input id='prs_date' type="text" class="form-control" name='prs_date' value="<?php echo $this->impd['impd_date'] != '0000-00-00' ? App_Date::fromMysqlDate($this->impd['impd_date']) : ''; ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Agent</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_agent' value="<?php echo $this->impd['impd_agent'] ?>">
+									</div>
+								</div>
+																
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Agency</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_agency' value="<?php echo $this->impd['impd_agency'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Phone</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_phone' value="<?php echo $this->impd['impd_phone'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Email</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_email' value="<?php echo $this->impd['impd_email'] ?>">
+											<input type='hidden' id='int_default_email' value='<?php echo $this->impd['impd_email'] ?>' />
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Call attempt</label>
+									<div class="col-md-6">
+
+											<select name='prs_call_attempt'  class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$callAttempt, 1)
+												?>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Status</label>
+									<div class="col-md-6">
+											<select name='prs_status' class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$status, 0)
+												?>
+											</select>
+										
+									</div>
+								</div>
+
+									<div class="form-group">
+										<label  class="col-md-4 control-label">Disposition</label>
+										<div class="col-md-6">
+	
+												<select name='prs_dsp_id' id='prs_dsp_id' class='form-control' onchange='showReminder(this.value)'>
+													<?php 
+													echo App_Form_Select::build($this->dsp['rows'], array('key' => 'dsp_id', 'value' => 'dsp_name'));
+													?>
+												</select>
+										</div>
+									</div>
+									
+								<div class='form-group' style='display: none' id='div_reminder'>
+										<label  class="col-md-4 control-label">Add Reminder</label>
+										<div class='col-md-6'>
+										
+											
+												<div class="form_datetime text-center" data-date-format="mm/dd/yyyy">
+												</div>
+												<br style='clear:both' />
+												<div id='info-alert' class='hide'>
+													<input type='hidden' name='ntf_date' id='ntf_date' />
+													<h3>Reminder</h3>
+													<div class="alert alert-info">
+													<strong>Info!</strong><br />Alarm <span id='info-reminder'></span>
+												</div>
+													<br /><br />
+													<textarea class='form-control' placeholder='notification' id='ntf_note' name='ntf_note'></textarea>
+													<br /><br />
+													<div class='row'>
+														<div class="form-group">
+															<label class="col-md-3 control-label">Type</label>
+															<div class="col-md-9">
+																<div class="checkbox-list">
+																	<label>
+																		<input type="checkbox" name='ntf_type[]' value=1 checked> Email
+																	</label>
+																	
+																	<label>
+																		<input type="checkbox" name='ntf_type[]' value=2> SMS
+																	</label>
+																	
+					
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													
+												</div>
+
+									</div>
+								</div>	
+									
+									
+								<div class="form-group">
+									<label class="col-md-4 control-label">Notes</label>
+									<div class="col-md-6">
+
+											<textarea  class="form-control" name='prs_notes'><?php echo $this->impd['impd_notes'] ?></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">POC</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_poc' value="<?php echo $this->impd['impd_poc'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">FAX</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_fax' value="<?php echo $this->impd['impd_fax'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Address</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_address' value="<?php echo $this->impd['impd_address'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-md-offset-4 col-md-8">
+									<a href="#promote-to-partner" class="btn purple" data-toggle='modal'>
+															<i class="fa fa-arrow-circle-up"></i> Promote to partner </a>
+										<a href="javascript:;" class="btn green" onclick='registerEntry()'>
+															<i class="fa fa-save"></i> Save / Next </a>
+															
+										<a href="#compose-mail" data-toggle='modal' class="btn blue">
+															<i class="icon-envelope"></i> Send Email </a>					
+									</div>
+								</div>
+								<input type='hidden' name='impd_id' value='<?php echo $this->impd['impd_id']?>' />
+								<input type='hidden' name='imp_id' value='<?php echo $this->impd['impd_imp_id']?>' />
+
+						</div>	
+					</div>
+				</div>
+				<div class='col-md-4'>
+					
+					
+					<?php 
+					 Ez_Interface_Helpers_Scripts::getSectionPortlet(Application_Model_Script::SCRIPT_SECTION_PROSPECT);
+					?>
+					
+					<div class="portlet box red-sunglo">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-calendar"></i> Add reminder
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+							<div class="portlet-body">
+							
+								<div class="form_datetime2 text-center" data-date-format="mm/dd/yyyy">
+								</div>
+								<br style='clear:both' />
+								<div id='info-alert2' class='hide'>
+									<input type='hidden' name='ntf_date2' id='ntf_date2' />
+									<h3>Reminder</h3>
+									<div class="alert alert-info">
+										<strong>Info!</strong><br />Alarm <span id='info-reminder2'></span>
+									</div>
+									<br /><br />
+									<textarea class='form-control' placeholder='notification' name='ntf_note2'></textarea>
+									<br /><br />
+									<div class='row'>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Type</label>
+											<div class="col-md-9">
+												<div class="checkbox-list">
+													<label>
+														<input type="checkbox" name='ntf_type2[]' value=1 checked> Email
+													</label>
+													
+													<label>
+														<input type="checkbox" name='ntf_type2[]' value=2> SMS
+													</label>
+													
+	
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									
+								</div>
+						
+						</div>
+						</div>
+					</div>
+				</div>	
+
+</div>
+					
+
+							
+
+							<div class="modal fade" id=promote-to-partner tabindex="-1" role="basic" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Promote to partner</h4>
+										</div>
+										<div class="modal-body">
+											<h3>Partner</h3>
+											<a class="btn  btn-block btn-primary" href="javascript:;" onclick='promoteTo(<?php echo Application_Model_Promote::PROMOTE_TYPE_HOME_INSPECTOR?>)'>Home Inspector</a>
+											<a class="btn btn-primary btn-block" href="javascript:;" onclick='promoteTo(<?php echo Application_Model_Promote::PROMOTE_TYPE_REAL_ESTATE?>)'>Real Estate</a>
+											<a class="btn btn-primary btn-block" href="javascript:;"  onclick='promoteTo(<?php echo Application_Model_Promote::PROMOTE_TYPE_INSURANCE_AGENT?>)'>Insurance Agent</a>
+											<a class="btn btn-primary btn-block" href="javascript:;" onclick='promoteTo(<?php echo Application_Model_Promote::PROMOTE_TYPE_LARGE_ORGANIZATION?>)'>Large Corporation</a>
+
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn default" data-dismiss="modal">Close</button>
+
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->							
+
+
+							
+</form>						
+<script>
+
+function  saveAnswers()
+{
+	$('#save_answers').val(1);
+	registerEntry();
+
+}
+									
+function getMonthName(mNr)
+{
+
+	var month = new Array();
+	month[0] = "January";
+	month[1] = "February";
+	month[2] = "March";
+	month[3] = "April";
+	month[4] = "May";
+	month[5] = "June";
+	month[6] = "July";
+	month[7] = "August";
+	month[8] = "September";
+	month[9] = "October";
+	month[10] = "November";
+	month[11] = "December";
+	return month[mNr];
+}
+function buildAlert2(d)
+{
+	$('#info-alert2').removeClass('hide');
+	d = new Date(d);
+	$('#info-reminder2').html('will be set for: '+ d.getDate() + ' ' + getMonthName(d.getMonth()) + ' ' + d.getFullYear() + ' at ' + d.getHours() + ':' + d.getMinutes());
+	date = d.getUTCFullYear() + '-' +
+    ('00' + (d.getUTCMonth()+1)).slice(-2) + '-' +
+    ('00' + d.getUTCDate()).slice(-2) + ' ' + 
+    ('00' + d.getUTCHours()).slice(-2) + ':' + 
+    ('00' + d.getUTCMinutes()).slice(-2) + ':' + 
+    ('00' + d.getUTCSeconds()).slice(-2);
+	$('#ntf_date2').val(date);
+}
+
+function buildAlert(d)
+{
+	$('#info-alert').removeClass('hide');
+	d = new Date(d);
+	$('#info-reminder').html('will be set for: '+ d.getDate() + ' ' + getMonthName(d.getMonth()) + ' ' + d.getFullYear() + ' at ' + d.getHours() + ':' + d.getMinutes());
+	date = d.getUTCFullYear() + '-' +
+    ('00' + (d.getUTCMonth()+1)).slice(-2) + '-' +
+    ('00' + d.getUTCDate()).slice(-2) + ' ' + 
+    ('00' + d.getUTCHours()).slice(-2) + ':' + 
+    ('00' + d.getUTCMinutes()).slice(-2) + ':' + 
+    ('00' + d.getUTCSeconds()).slice(-2);
+	$('#ntf_date').val(date);
+}
+$(function(){
+
+		$('#prs_date').datepicker({
+			 autoclose: true,
+			});
+	   $(".form_datetime").datetimepicker({
+
+           autoclose: true,
+
+           isRTL: Metronic.isRTL(),
+
+           format: "dd MM yyyy - hh:ii",
+           showMeridian: true,
+
+           pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
+           onSelect: function(date) {
+               alert(date)
+           },
+
+       }).on('changeDate', function(e){
+				buildAlert(e.date);
+           });
+
+	   $(".form_datetime2").datetimepicker({
+
+           autoclose: true,
+
+           isRTL: Metronic.isRTL(),
+
+           format: "dd MM yyyy - hh:ii",
+           showMeridian: true,
+
+           pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
+           onSelect: function(date) {
+               
+           },
+
+       }).on('changeDate', function(e){
+				buildAlert2(e.date);
+           });
+;
+	
+})
+
+function promoteTo(promoteType)
+{
+	$.ajax({
+		type : 'post',
+		data : 	$('#frm_prospect').serialize(),
+
+		url : '/prospect/post/getid/true/id/<?php echo $this->prs['prs_id']?>',
+		success : function(r)
+		{
+
+			if( !isNaN(parseFloat(r)) && isFinite(r))
+			{
+				document.location.href = '/promote/add/imp_id/<?php echo $this->impd['impd_imp_id']?>/type/<?php echo Application_Model_Import::IMP_TYPE_PROSPECTS?>/promote-type/'+ promoteType  + '/ref_id/' + r
+			}
+			else 
+			{
+				bootbox.alert(r);
+			}
+		}
+});
+}
+
+function showReminder(option)
+{
+
+	option = Number(option);
+	var showReminderFor = [0, 12, 13, 14, 15, 16, 17, 18, 20, 21];
+	if($.inArray(option,  showReminderFor) !== -1)
+	{
+		$('#div_reminder').show();
+	}
+	else 
+	{
+		$('#div_reminder').hide();
+	}
+	
+}
+
+function registerEntry()
+{
+	var showReminderFor = [0, 12, 13, 14, 15, 16, 17, 18, 20, 21];
+
+
+	option = Number($('#prs_dsp_id').val());
+	
+	if($.inArray(option,  showReminderFor) !== -1)
+	{
+		
+		
+		if($('#ntf_note').val() == '' && $('#ntf_note2').val() )
+		{
+			bootbox.alert('For this disposition you have to make a reminder!');
+			return;
+		}	
+	}
+	$.ajax({
+				type : 'post',
+				data : 	$('#frm_prospect').serialize(),
+
+				url : '/prospect/post',
+				success : function(r)
+				{
+					if(r == 'done')
+					{
+						document.location.reload();
+					}
+					else 
+					{
+						bootbox.alert(r);
+					}
+				}
+		});
+}
+</script>
+					

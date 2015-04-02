@@ -1,0 +1,57 @@
+<div class='row'>
+	<div class='col-md-2'>
+	
+	</div>
+	<div class='col-md-8'>
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-info font-green-sharp"></i>
+					<span class="caption-subject font-green-sharp bold uppercase">Version history</span>
+				</div>
+				
+				
+			</div>
+			<div class="portlet-body">
+					<h3>Version 0.7.4</h3>
+					<p>
+						<ul>
+							<li>Multiple signatures for email</li>
+							<li>After sending an email the email form will close</li>
+							
+						</ul>
+					</p>
+					<h3>Version 0.7.3</h3>
+					<p>
+						<ul>
+							<li>We`ve made a pie, click on the pie for your slice ( more graphs will come in the future )</li>
+							<li>If you are into edit or process form, if you click on the email the application will try to populate the `TO` field</li>
+							<li>Email templates are now divided into OSC and Secure24</li>
+							<li>Profile pictures for users</li>
+							<li><h4>Maps are dinamycal into DB. If you add a new town to your network will took us 10 secs to add this one to the map section ( view on map, determinate if address is in range ... etc )</h4></li>
+							<li>Info circle for some fileds into promote section</li>
+							<li>Green circles into Location for 80 miles areea</li>
+							<li>Try to determinate network - In the promote form there is a button for network 'Try to determinate' that works ( max 2500 requests / day )</li>
+						</ul>
+					</p>
+					<h3>Version 0.7.2</h3>
+					<p>
+						<ul>
+							<li>Scripts are now in 2 modules ( Secure24, OSC  + Both)</li>
+							<li>Added `About section`</li>
+							<li>Implemented phone number for users ( in order to recive SMS notifications )</li>
+							<li>Added profile section: the user can change name / phone number / password</li>
+							<li>Users can see the library</li>
+							<li>Loading status when a file is uploaded to library ( for admin )</li>
+							<li>Emails sent are now stored in database for displaing later</li>
+						</ul>
+						
+					</p>
+			</div>
+		</div>			
+	</div>
+	
+	<div class='col-md-2'>
+	
+	</div>
+</div>

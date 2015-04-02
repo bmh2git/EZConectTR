@@ -1,0 +1,289 @@
+<form id="frm_prospect" role="form">	
+<div class="row form-horizontal">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Promote to Real Estate Agent</span>
+							</div>
+							
+							
+						</div>
+						<div class="portlet-body">
+
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Agency Name & State</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+							
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Effective Date</label>
+									<div class="col-md-6">
+
+											<input type="text"  name="prs_date" class="form-control" id="prs_date">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Real Estate Office Contact Name</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact`s Number</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agency" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Contact`s Email</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >How Are They Submitting Referrals</label>
+									<div class="col-md-6">
+
+											<textarea class="form-control"></textarea>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">What days of the week will they be sending them</label>
+									<div class="col-md-6">
+
+											<select class="form-control" name="prs_call_attempt" multiple>
+												<option>Sunday</option>
+												<option>Monday</option>
+												<option>Tuesday</option>
+												<option>Wednesday</option>
+												<option>Thursdau</option>
+												<option>Friday</option>
+												<option>Saturday</option>
+											</select>
+											<span class="help-block">
+											Ctrl+ Click for selecting many. </span>	
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >How many Buying side can we expect monthly</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Any agents on the opt out list or special concerns</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Any compensation plan established</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Vendor fee</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_phone" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Referral fee required</label>
+									<div class="col-md-6">
+
+											<div class="radio-list">
+												<label>
+													<input type="radio" name="referral_fee_required" value='no' onclick='$("#fee_form").hide()'> No
+												</label>
+													<label>
+														<input type="radio" name="referral_fee_required" value='yes' onclick='$("#fee_form").show()'> Yes
+													</label>
+													
+													<div class="radio-list" id='fee_form' style='display:none; padding-left:10px'>
+														<label>
+															<input type='radio' name='fee_type' value='Monthly Real Estate Referral Fee' onclick='showOption(1)'/> Monthly Real Estate Referral Fee
+														</label>
+														
+														<label>
+															<input type='radio' name='fee_type' value='Annual Real Estate'  onclick='showOption(2)'/> Annual Real Estate
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='OSC Referral Plan'  onclick='showOption(3)'/> OSC Referral Plan
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='Affiliate fee per alarm install'  onclick='showOption(4)'/> Affiliate fee per alarm install
+														</label>
+														<label>
+															<input type='radio' name='fee_type' value='Pay Per Lead'  onclick='showOption(5)'/> Pay Per Lead
+														</label>
+														
+														<div style='padding-left:10px'>
+															<select class='form-controll fee' style='display:none' id='fee_option_1'>
+																<option>100</option>
+																<option>150</option>
+																<option>200</option>
+																<option>250</option>
+																<option>300</option>
+																<option>350</option>
+																<option>400</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_2'>
+																<option>500</option>
+																<option>1,000</option>
+																<option>1,500</option>
+																<option>2,000</option>
+																<option>2,500</option>
+																<option>3,000</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_3'>
+																<option>Type A</option>
+																<option>Type B</option>
+																<option>Type C</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_4'>
+																<option>$ 200</option>
+																<option>100/100</option>
+																<option>$ 300</option>
+																<option>Zero</option>
+															</select>
+															
+															<select class='form-control fee' style='display:none' id='fee_option_5'>
+																<option>$ 1</option>
+																<option>$ 2</option>
+																<option>$ 5</option>
+																<option>$ 8</option>
+																<option>$ 10</option>
+																<option>$ 12</option>
+																
+															</select>
+
+														</div>
+														
+														
+													</div>
+											</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >In Network or Out Network</label>
+									<div class="col-md-6">
+
+											<div class="radio-list">
+												<label>
+													<input type='radio' name='in_network_or_out_network' value='Out network' /> Out network
+												</label>
+												
+												<label>
+													<input type='radio' name='in_network_or_out_network' value='In Network' /> In Network
+												</label>
+												
+											</div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Statement Of Work </label>
+									<div class="col-md-6">
+
+											<input type="file"  name="prs_phone">
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Facebook</label>
+									<div class="col-md-6">
+
+											<input type="text" value="" name="prs_agent" class="form-control">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-md-offset-4 col-md-8">
+									
+															<?php 
+															if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+															{
+																?>
+																	<a href="javascript:;" class="btn green" onclick='goToNext()'>
+															<i class="fa fa-save"></i> Save / Next </a>
+																<?php
+															}
+															else 
+															{
+																?>
+																<a href="javascript:;" class="btn green" onclick='saveThisEntry()'>
+															<i class="fa fa-save"></i> Save </a>
+																<?php
+															}
+															?>
+									
+									</div>
+								</div>
+						</div>	
+					</div>
+				</div>
+	
+</div>
+					
+</form>
+<script>
+
+<script>
+
+function saveThisEntry()
+{
+	bootbox.alert('The entry was saved!', function(){
+			document.location.href="/lead/"
+		});
+	
+}
+
+function goToNext()
+{
+	<?php 
+
+	if(isset($this->p['imp_id']) && $this->p['imp_id'] > 0)
+	{
+	?>
+	bootbox.alert('The entry was saved!', function(){
+		document.location.href="/lead/process/id/<?php echo $this->p['imp_id']?>"
+	});
+	<?php 
+	}
+	?>
+}
+</script>
+function showOption(id)
+{
+	$('.fee').hide();
+	$('#fee_option_' + id).show();
+}
+</script>

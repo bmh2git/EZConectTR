@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck
+END
+icheck.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/icheck.js
+END
+icheck.min.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/icheck.min.js
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/.gitignore
+END
+CHANGELOG.md
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/CHANGELOG.md
+END
+bower.json
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/bower.json
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/README.md
+END
+icheck.jquery.json
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/ezconect/!svn/ver/1/www-admin/assets/global/plugins/icheck/icheck.jquery.json
+END

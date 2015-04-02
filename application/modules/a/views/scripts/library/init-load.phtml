@@ -1,0 +1,49 @@
+<div class='row' style='height:400px'>
+	<div class='col-md-4' >
+	<?php
+	$lbrs = array(); 
+	if(count($this->lbr['rows']))
+	{
+		foreach ($this->lbr['rows'] as $lbr)
+		{
+			if($lbr['lbr_type'] == Application_Model_Library::LBR_TYPE_FOLDER)
+			{
+				?>
+				<a href='javascript:;' onclick='intLbrOpenFolder(<?php echo $lbr['lbr_id']?>)'><i class='icon-folder'></i> <?php echo $lbr['lbr_name']?></a>
+				<br />
+				<?php
+			}
+			else 
+			{
+				$lbrs[] = $lbr;
+			}
+		}
+	}
+	?>
+	</div>
+	<div class='col-md-8' id='int-lbr-list-content' style='border-left:1px solid #c6c6c6'>
+		<?php 
+		if(count($lbrs))
+		{
+			foreach ($lbrs as $lbr)
+			{
+				if($lbr['lbr_type'] == Application_Model_Library::LBR_TYPE_FOLDER)
+				{
+				?>
+					<a href='javascript:;' onclick='intLbrOpenFolder(<?php echo $lbr['lbr_id']?>)'><i class='icon-folder'></i> <?php echo $lbr['lbr_name']?></a>
+				<?php 
+				}
+				else 
+				{
+					?>
+					<a href='/get-file/library/id/<?php echo $lbr['lbr_id']?>' target='_blank'><i class='fa <?php echo Ez_Interface_Files_Manager::getFileIcon($lbr['lbr_content'])?>'></i> <?php echo $lbr['lbr_name']?></a>
+					<?php
+				}
+				?>
+				<br />
+				<?php
+			}
+		}
+		?>
+	</div>
+</div>

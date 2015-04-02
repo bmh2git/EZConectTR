@@ -1,0 +1,981 @@
+<?php
+$data = Zend_Json::decode($this->prt['prt_data']);
+Bootstrap::logConsole($data);
+$files = Zend_Json::decode($this->prt['prt_file']);
+$photo = '';
+$w9Exist = false;
+foreach ($files as $name => $file)
+{
+	
+	if(!empty($photo))
+	{
+		continue;
+	}
+	if(in_array($name, array('logo', 'pic_1', 'pic_2', 'pic_3')))
+	{
+		$ext = Ez_Interface_Files_Manager::getFileExtension($file);
+		if(in_array($ext, array('jpg', 'png')))
+		{
+			$photo = $file;
+		}
+	}
+}
+	
+?>
+<link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<div class="row margin-top-10">
+				<div class="col-md-12">
+					<!-- BEGIN PROFILE SIDEBAR -->
+					<div class="profile-sidebar" style="width: 250px;">
+						<!-- PORTLET MAIN -->
+						<div class="portlet light profile-sidebar-portlet">
+							<!-- SIDEBAR USERPIC -->
+							<?php 
+							if(!empty($photo))
+							{
+							?>
+							<div class="profile-userpic">
+								<img src="/get-file/image?file=<?php echo $photo ?>" class="img-responsive" alt="">
+							</div>
+							<?php 
+							}
+							?>
+							<!-- END SIDEBAR USERPIC -->
+							<!-- SIDEBAR USER TITLE -->
+							<div class="profile-usertitle">
+								<div class="profile-usertitle-name">
+									 <?php echo $this->user['adm_fullname']?>
+								</div>
+								<div class="profile-usertitle-job">
+									 <?php 
+									 echo Application_Model_Promote::getPartnerTypeName($this->prt['prt_type']);
+									 ?>
+								</div>
+							</div>
+							<!-- END SIDEBAR USER TITLE -->
+							<!-- SIDEBAR BUTTONS -->
+							<div class="profile-userbuttons">
+								<button type="button" class="btn btn-circle green-haze btn-sm">Action 1</button>
+								<button type="button" class="btn btn-circle btn-danger btn-sm">Action 2</button>
+							</div>
+							<!-- END SIDEBAR BUTTONS -->
+							<!-- SIDEBAR MENU -->
+							<div class="profile-usermenu">
+								<ul class="nav">
+								
+									<li>
+										<a href="#">
+										<i class="icon-settings"></i>
+										Link 2 </a>
+									</li>
+									<li>
+										<a href="#" target="_blank">
+										<i class="icon-check"></i>
+										Link 3 </a>
+									</li>
+									<li>
+										<a href="#">
+										<i class="icon-info"></i>
+										Link 4 </a>
+									</li>
+								</ul>
+							</div>
+							<!-- END MENU -->
+						</div>
+						<!-- END PORTLET MAIN -->
+						<!-- PORTLET MAIN -->
+						<div class="portlet light">
+							<!-- STAT -->
+							<div class="row list-separated profile-stat">
+								<div class="col-md-4 col-sm-4 col-xs-6">
+									<div class="uppercase profile-stat-title">
+										 37
+									</div>
+									<div class="uppercase profile-stat-text">
+										 Refferals
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-6">
+									<div class="uppercase profile-stat-title">
+										 51
+									</div>
+									<div class="uppercase profile-stat-text">
+										 Customers
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-6">
+									<div class="uppercase profile-stat-title">
+										 61
+									</div>
+									<div class="uppercase profile-stat-text">
+										 Finished Orders
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<!-- END PORTLET MAIN -->
+					</div>
+					<!-- END BEGIN PROFILE SIDEBAR -->
+					<!-- BEGIN PROFILE CONTENT -->
+					<div class="profile-content">
+						<div class="row">
+							<div class="col-md-6">
+								<!-- BEGIN PORTLET -->
+								<div class="portlet light ">
+									
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">Profile</span>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="#tab_1_1" data-toggle="tab">
+												General </a>
+											</li>
+											<li>
+												<a href="#tab_1_2" data-toggle="tab">
+												<?php echo $this->tabTitle ?> </a>
+											</li>
+										</ul>
+									</div>
+									
+									<div class="portlet-body">
+									<div class="tab-content">
+									
+										<div class="tab-pane active" id="tab_1_1">
+										
+										<div class="table-scrollable table-scrollable-borderless">
+											<table class="table table-hover table-light">
+											
+											<tr>
+												<td>
+													Network
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('network', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Company Name
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('company_name', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Monthly Lead Volume
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Monthly Lead Volume', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Lead Frequency
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Lead Frequency', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Account Classification
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Account Class Type', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Submittal Needs
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Submittal Needs', $data)?>
+												</td>
+											</tr>
+											
+											
+											
+											<tr>
+												<td>
+													 Point Of Contact Name
+												
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Point Of Contact Name', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													 Email
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Email', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													  Contact Number
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Contact Number', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													 Affiliate Fee
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Affiliate Fee', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													 Rep Lead Fee
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Rep Lead Fee', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													 Make Checks Payable To
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Make Checks Payable To', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Mailing Address
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Mailing Address', $data)?>
+												</td>
+											</tr>
+											
+											
+											<tr>
+												<td>
+													Performance Reviews
+												
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Performance Reviews', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Calendar Invite
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Calendar Invite', $data)?>
+												</td>
+											</tr>
+											
+											
+											
+											
+											<tr>
+												<td>
+													Special Notes
+												</td>
+												<td>
+													<?php echo App_Word::renderText(Ez_Interface_Form::getFormValue('Special Notes', $data))?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													Marketing Materials
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Marketing Materials', $data)?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													 Landing Page
+												
+												</td>
+												<td>
+													<?php echo Ez_Interface_Form::getFormValue('Landing Page', $data)?>
+												</td>
+											</tr>
+
+											</table>
+										</div>
+										</div>
+										<div class="tab-pane form-horizontal" id="tab_1_2">
+											<?php 
+											if($this->prt['prt_ref_type'] == Application_Model_Import::IMP_TYPE_PROSPECTS)
+											{
+	
+											?>
+									<?php 
+								$this->module = $this->prs['prs_module'];
+								?>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Platform</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_BOTH){?>checked<?php }?>> Both
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_OSC?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_OSC){?>checked<?php }?>>  <span class="label  label-danger">OSC</span>
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_SECURE24){?>checked<?php }?>> <span class="label label-primary">Secure24</span>
+											</label>
+
+										</div>
+
+									</div>
+								</div>
+							
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Date</label>
+									<div class="col-md-6">
+
+											<input id='prs_date' type="text" class="form-control" name='prs_date' value="<?php echo $this->prs['prs_date'] != '0000-00-00' ? App_Date::fromMysqlDate($this->prs['prs_date']) : ''; ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Agent</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_agent' value="<?php echo $this->prs['prs_agent'] ?>">
+									</div>
+								</div>
+								
+								
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Agency</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_agency' value="<?php echo $this->prs['prs_agency'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Phone</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_phone' value="<?php echo $this->prs['prs_phone'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Email</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_email' value="<?php echo $this->prs['prs_email'] ?>">
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Call attempt</label>
+									<div class="col-md-6">
+
+											<select name='prs_call_attempt'  class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$callAttempt, $this->prs['prs_call_attempt'])
+												?>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Status</label>
+									<div class="col-md-6">
+											<select name='prs_status' class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$status, $this->prs['prs_status'])
+												?>
+											</select>
+										
+									</div>
+								</div>
+								
+							
+								
+									<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Disposition</label>
+									<div class="col-md-6">
+
+											<select name='prs_dsp_id' class='form-control'>
+												<?php 
+												echo App_Form_Select::build($this->dsp['rows'], array('key' => 'dsp_id', 'value' => 'dsp_name'));
+												?>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Notes</label>
+									<div class="col-md-6">
+
+											<textarea  class="form-control" name='prs_notes'><?php echo $this->prs['prs_notes'] ?></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">POC</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_poc' value="<?php echo $this->prs['prs_poc'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">FAX</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_fax' value="<?php echo $this->prs['prs_fax'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Address</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='prs_address' value="<?php echo $this->prs['prs_address'] ?>">
+									</div>
+								</div>
+								
+											<?php 
+											}
+											
+											if($this->prt['prt_ref_type'] == Application_Model_Import::IMP_TYPE_LEAD)
+											{
+											?>
+											
+								
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-sm-6">
+								<i class="fa fa-pencil font-green-sharp"></i>
+								<span class="caption-subject font-green-sharp bold uppercase">Edit entry</span>
+							</div>
+							<div class="col-sm-6 text-right">
+								<a href='/prospect/' class="btn default"><i class='fa fa-chevron-circle-left'></i> View all</a>
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+								<?php 
+								$this->module = $this->lead['lead_module'];
+								?>
+								<div class="form-group">
+									<label class="col-md-4 control-label" >Platform</label>
+									<div class="col-md-6">
+											<div class="radio-list">
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_BOTH?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_BOTH){?>checked<?php }?>> Both
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_OSC?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_OSC){?>checked<?php }?>>  <span class="label  label-danger">OSC</span>
+											</label>
+											
+											<label>
+												<input type="radio" name="s_module" value="<?php echo Application_Model_Module::MODULE_TYPE_SECURE24?>" <?php if($this->module == Application_Model_Module::MODULE_TYPE_SECURE24){?>checked<?php }?>> <span class="label label-primary">Secure24</span>
+											</label>
+
+										</div>
+
+									</div>
+								</div>
+							
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Date</label>
+									<div class="col-md-6">
+
+											<input id='lead_date' type="text" class="form-control" name='lead_date' value="<?php echo $this->lead['lead_date'] != '0000-00-00' ? App_Date::fromMysqlDate($this->lead['lead_date']) : ''; ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Agent</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_agent' value="<?php echo $this->lead['lead_agent'] ?>">
+									</div>
+								</div>
+								
+							
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Agency</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_agency' value="<?php echo $this->lead['lead_agency'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Phone</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_phone' value="<?php echo $this->lead['lead_phone'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Email</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_email' value="<?php echo $this->lead['lead_email'] ?>">
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Call attempt</label>
+									<div class="col-md-6">
+
+											<select name='lead_call_attempt'  class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$callAttempt, $this->lead['lead_call_attempt'])
+												?>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Status</label>
+									<div class="col-md-6">
+											<select name='lead_status' class='form-control'>
+												<?php 
+												echo App_Form_Select::simpleBuild(Application_Model_Imported::$status, $this->lead['lead_status'])
+												?>
+											</select>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label  class="col-md-4 control-label">Current Step Due Date</label>
+									<div class="col-md-6">
+										<input  type="text" class="date form-control" name='lead_due_date' value="<?php echo $this->lead['lead_due_date'] != '0000-00-00' ? App_Date::fromMysqlDate($this->lead['lead_due_date']) : ''?>">											
+									</div>
+								</div>
+								
+								
+									<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Disposition</label>
+									<div class="col-md-6">
+
+											<select name='lead_dsp_id' class='form-control'>
+												<?php 
+												echo App_Form_Select::build($this->dsp['rows'], array('key' => 'dsp_id', 'value' => 'dsp_name'));
+												?>
+											</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Notes</label>
+									<div class="col-md-6">
+
+											<textarea  class="form-control" name='lead_notes'><?php echo $this->lead['lead_notes'] ?></textarea>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">POC</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_poc' value="<?php echo $this->lead['lead_poc'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">FAX</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_fax' value="<?php echo $this->lead['lead_fax'] ?>">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputEmail12" class="col-md-4 control-label">Address</label>
+									<div class="col-md-6">
+
+											<input type="text" class="form-control" name='lead_address' value="<?php echo $this->lead['lead_address'] ?>">
+									</div>
+								</div>
+								
+								
+								
+
+						</div>	
+					</div>
+											<?php 
+											}
+											?>
+										</div>
+										</div>	
+									</div>
+								</div>
+								<!-- END PORTLET -->
+							</div>
+
+							<div class="col-md-6">
+								<!-- BEGIN PORTLET -->
+								<div class="portlet light tasks-widget">
+									<div class="portlet-title">
+										<div class="caption caption-md">
+											<i class="icon-bar-chart theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">Tasks</span>
+											<span class="caption-helper">16 pending</span>
+										</div>
+										<div class="inputs">
+											<div class="portlet-input input-small input-inline">
+												<div class="input-icon right">
+													<i class="icon-magnifier"></i>
+													<input type="text" class="form-control form-control-solid" placeholder="search...">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="task-content">
+											<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<!-- START TASK LIST -->
+												<ul class="task-list">
+													<li>
+														<div class="task-checkbox">
+															<input type="hidden" value="1" name="test"/>
+															<input type="checkbox" class="liChild" value="2" name="test"/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Present 2013 Year IPO Statistics at Board Meeting </span>
+															<span class="label label-sm label-success">Company</span>
+															<span class="task-bell">
+															<i class="fa fa-bell-o"></i>
+															</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Hold An Interview for Marketing Manager Position </span>
+															<span class="label label-sm label-danger">Marketing</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															AirAsia Intranet System Project Internal Meeting </span>
+															<span class="label label-sm label-success">AirAsia</span>
+															<span class="task-bell">
+															<i class="fa fa-bell-o"></i>
+															</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Technical Management Meeting </span>
+															<span class="label label-sm label-warning">Company</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Kick-off Company CRM Mobile App Development </span>
+															<span class="label label-sm label-info">Internal Products</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Prepare Commercial Offer For SmartVision Website Rewamp </span>
+															<span class="label label-sm label-danger">SmartVision</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Sign-Off The Comercial Agreement With AutoSmart </span>
+															<span class="label label-sm label-default">AutoSmart</span>
+															<span class="task-bell">
+															<i class="fa fa-bell-o"></i>
+															</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															Company Staff Meeting </span>
+															<span class="label label-sm label-success">Cruise</span>
+															<span class="task-bell">
+															<i class="fa fa-bell-o"></i>
+															</span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+													<li class="last-line">
+														<div class="task-checkbox">
+															<input type="checkbox" class="liChild" value=""/>
+														</div>
+														<div class="task-title">
+															<span class="task-title-sp">
+															KeenThemes Investment Discussion </span>
+															<span class="label label-sm label-warning">KeenThemes </span>
+														</div>
+														<div class="task-config">
+															<div class="task-config-btn btn-group">
+																<a class="btn btn-xs default" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+																<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+																</a>
+																<ul class="dropdown-menu pull-right">
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-check"></i> Complete </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-pencil"></i> Edit </a>
+																	</li>
+																	<li>
+																		<a href="#">
+																		<i class="fa fa-trash-o"></i> Cancel </a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<!-- END START TASK LIST -->
+											</div>
+										</div>
+										<div class="task-footer">
+											<div class="btn-arrow-link pull-right">
+												<a href="#">See All Tasks</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- END PORTLET -->
+							</div>
+						</div>
+					</div>
+					<!-- END PROFILE CONTENT -->
+					</div>
+			</div>

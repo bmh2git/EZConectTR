@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/user
+END
+details.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/user/details.phtml
+END
+edit.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/user/edit.phtml
+END
+post.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/ezconect/!svn/ver/1/application/modules/a/views/scripts/user/post.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/ezconect/!svn/ver/2/application/modules/a/views/scripts/user/index.phtml
+END
+add.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ezconect/!svn/ver/1/application/modules/a/views/scripts/user/add.phtml
+END

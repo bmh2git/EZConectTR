@@ -1,0 +1,151 @@
+<div class="col-md-12">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption col-md-6">
+								<i class="fa fa-list font-green-sharp"></i>
+								Lost
+								
+							</div>
+							
+						</div>
+						<div class="portlet-body">
+<table class="table table-striped table-bordered table-hover" id="data-table">
+									<thead>
+								<tr>
+									
+									<th>
+										 Name
+									</th>
+									<th>
+										 Agency
+									</th>
+									<th>
+										 Phone#
+									</th>
+									<th>
+										  Call attempt
+									</th>
+									
+									
+									
+									<th>
+										 Email
+									</th>
+									
+									<th>
+										 Disposition
+									</th>
+									<?php 
+									if($this->with_adm_name)
+									{
+									?>
+									<th>
+										 By user
+									</th>
+									<?php 
+									}
+									?>
+									<th>
+										 Platform
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$cnt = 1;
+								if(isset($this->data['rows']) && count($this->data['rows']))
+								{
+									foreach ($this->data['rows'] as $r)
+									{
+										?>
+										<tr>
+											<td>
+												<?php echo $r['prs_agent']?>
+											</td>
+												
+											<td>
+												<?php echo $r['prs_agency']?>
+											</td>
+											
+											<td>
+												<?php echo $r['prs_phone']?>
+											</td>
+											<td>
+											<?php 
+											if( $r['prs_call_attempt'] == 1)
+											{
+												echo '1st';
+											}
+											
+											if( $r['prs_call_attempt'] == 2)
+											{
+												echo '2nd';
+											}
+											
+											if( $r['prs_call_attempt'] == 3)
+											{
+												echo '3rd';
+											}
+											
+											
+											?>
+											<td>
+												<?php echo $r['prs_email']?>
+											</td>
+											<td>
+												<?php echo $r['dsp_name']?>
+											</td>
+											<?php 
+											if($this->with_adm_name)
+											{
+											?>
+											<td>
+												<?php echo $r['adm_user']?>
+											</td>
+											<?php 
+											}
+											?>
+											<td>
+												<?php 
+													if($r['prs_module'] == Application_Model_Module::MODULE_TYPE_BOTH)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r['prs_module'] == Application_Model_Module::MODULE_TYPE_OSC)
+													{
+														?>
+														<span class="label label-sm label-danger">OSC</span>
+														<?php
+													}
+													?>
+													
+													<?php 
+													if($r['prs_module'] == Application_Model_Module::MODULE_TYPE_SECURE24)
+													{
+														?>
+														<span class="label label-sm label-primary">Secure24</span>
+														<?php
+													}
+													?>
+											</td>
+
+										</tr>
+											
+										<?php
+									}
+								}
+								?>
+							</tbody>
+								
+							</table>
+						</div>
+					</div>
+				</div>
+						
