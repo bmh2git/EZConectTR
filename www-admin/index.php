@@ -1,9 +1,6 @@
 <?php
-if($_SERVER['REMOTE_ADDR'] != '84.232.203.225')
-{
-	//die();
-}
-//die();
+date_default_timezone_set("America/Chicago");
+
 header ('Content-type: text/html; charset=utf-8');
 // Define path to application directory
 defined('APPLICATION_PATH')
