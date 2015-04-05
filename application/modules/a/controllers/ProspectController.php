@@ -591,7 +591,185 @@ class ProspectController extends Ez_Action
 		
 		
 	}
-	
+	        
+        public function getAgencyAction( $name, $phoneNumber ) {
+            Bootstrap::logConsole("-->getAgencyAction()");
+            $agency = null;
+            // quick exit
+            if ( $name == null && $phoneNumber == null ) {
+                return $agency;
+            }
+            
+            $modelLead = new Application_Model_Lead();
+            if ( $name != null && $phoneNumber == null ) {
+                $agency = $modelLead->fetchAll("Select * from prs_prospect where Upper( prs_agency ) = Upper('".$name."')");
+            } else if ( $name == null && $phoneNumber != null ) {
+                $agency = $modelLead->fetchAll("select * from prs_prospect where replace( prs_phone, '-','') = replace( '".$phoneNumber."','-','')");
+            } else if ( $name != null && $phoneNumber != null ) {
+                $agency = $modelLead->fetchAll("select * from prs_prospect where Upper( prs_agency ) = Upper('".$name."') AND replace( prs_phone, '-','') = replace( '".$phoneNumber."','-','')");
+            } 
+                
+            return $agency;
+        }
+        
+        // validateAgencyAction()
+        // validation rules:
+        // rule 1:  if agency does not exist then its currently not valid in the system (good thing)
+        // rule 2: if both the agency name and number are being validated then both
+        //          must match in order for the agency to be valid.
+        // rule 3: if just the agency name has been provided then if the name exists then
+        //          the agency is considered valid.
+        // rule 4:  if just the phone number has been provided then if the number exists in 
+        //          in the system then consider the agency valid.
+        // if for some reason we get through all the rules above without a match then consider
+        // the agency invalid.
+        // input:
+        //  http request - in particular looking for prs_agency and prs_phone.
+        // output:
+        //  boolean
+        //      valid : true
+        //      invalid : false
+        //
+        public function validateAgencyAction() {
+            Bootstrap::logConsole("-->validateAgencyAction()");
+            
+            $p = $this->_request->getParams();
+            $prsAgency = array_key_exists('prs_agency', $p)?trim($p['prs_agency']):null;
+            $prsPhone = array_key_exists('prs_phone', $p)?trim($p['prs_phone']):null;
+            
+            // quick escape
+            if ( strlen( $prsAgency ) < 1 && strlen( $prsPhone ) < 1 ) {
+                die('false');
+            }
+            
+            $agency = $this->getAgencyAction( $prsAgency, $prsPhone );
+            
+            // validation rules:
+            // rule 1:  
+            if ( $agency == null  || count($agency) == 0 ) {
+                die('false');
+            }
+            
+            foreach ( $agency as $item ) {
+                $itemPhoneStripped = str_replace('-', '', trim($item['prs_phone']));
+                $prsPhoneStripped = str_replace('-','', $prsPhone );
+                
+                // rule 2: 
+                if ( strcasecmp(trim($item['prs_agency']), $prsAgency) == 0 && strcasecmp($prsPhoneStripped,$itemPhoneStripped) == 0 ) {
+                    die( 'true' );
+                }
+                // rule 3: 
+                if ( strcasecmp(trim($item['prs_agency']), $prsAgency) == 0 ) {
+                    die( 'true' );
+                }
+                // rule 4:  
+                if ( strcasecmp($itemPhoneStripped, $prsPhoneStripped) == 0 && strlen($itemPhoneStripped) > 0 && strlen($prsPhoneStripped) > 0 ) {
+                    die( 'true' );
+                }
+            }
+            // default rule:
+            die('false');
+        }
+        
+        // validateAgentAction()
+        // Purpose:  determine whether an agent already exists in the system.
+        // Rules:
+        // Rule 1:  If the agents name is found in the system then return true.
+        // Input:
+        //      HTTP Request -- looking for prs_agent
+        // Output:
+        //  boolean
+        //      True : found in system
+        //      False : NOT found in system
+        public function validateAgentAction() {
+            $p = $this->_request->getParams();
+            $prsAgent = array_key_exists('prs_agent', $p)?trim($p['prs_agent']):null;
+                       
+            // quick escape
+            if ( strlen( $prsAgent ) < 1 ) {
+                die('false');
+            }
+            
+            $agents = null;
+            $modelLead = new Application_Model_Lead();
+            if ( $prsAgent != null ) {
+                $agents = $modelLead->fetchAll("Select * from prs_prospect where Upper( prs_agent ) = Upper('".$prsAgent."')");
+            } 
+            
+            if ( $agents == null || count($agents) == 0 ) {
+                die('false');
+            }
+            
+            foreach ( $agents as $a ) {
+                // Rule 1:
+                if ( strcasecmp(trim($a['prs_agent']),trim($prsAgent)) == 0 ) {
+                    die('true');
+                }
+            }
+            // default rule
+            die('false');
+        }
+        
+        // validateAgentNameAction()
+        // Purpose:
+        //  Determine whether the name of the agent currently exists in the system.
+        // Rules:
+        //  Rule 1: If both the first and last name are provided and the combo is found in the system then return true.
+        //  Rule 2: If only the first-name is provided and it is found in the system then return true.
+        //  Rule 3: If only the last-name is provided and it is found in the system then return true.
+        // Input:
+        //  HTTP request.  Expecting to find prs_first_name and prs_last_name in the request.
+        // Output:
+        //  boolean
+        //      True : found in system
+        //      False : NOT found in system
+        public function validateAgentNameAction() {
+            $p = $this->_request->getParams();
+            $prsFName = array_key_exists('prs_first_name', $p)?trim($p['prs_first_name']):null;
+            $prsLName = array_key_exists('prs_last_name', $p)?trim($p['prs_last_name']):null;
+            
+            // quick escape
+            if ( strlen($prsFName) < 1 && strlen($prsLName) < 1 ) {
+                die('false');
+            }
+            
+            $agents = null;
+            $modelLead = new Application_Model_Lead();
+            if ( $prsLName != null && $prsFName == null ) {
+                $agents = $modelLead->fetchAll("Select * from prs_prospect where Upper( prs_last_name ) = Upper('".$prsLName."')");
+            } else if ( $prsFName != null && $prsLName == null ) {
+                $agents = $modelLead->fetchAll("Select * from prs_prospect where Upper( prs_first_name ) = Upper('".$prsFName."')");
+            } else if ( $prsFName != null && $prsLName != null ) {
+                $agents = $modelLead->fetchAll("Select * from prs_prospect where Upper( prs_first_name ) = Upper('".$prsFName."') AND Upper( prs_last_name ) = Upper('".$prsLName."')");
+            }
+            
+            if ( $agents == null || count($agents) == 0 ) {
+                die('false');
+            }
+            
+            foreach ( $agents as $a ) {
+                // rule 1:
+                if ( $prsLName != null && $prsFName != null ) {
+                    if ( strcasecmp($a['prs_last_name'], $prsLName) == 0 && strcasecmp($a['prs_first_name'], $prsFName) == 0 ) {
+                        die('true');
+                    }
+                } else if ( $prsFName != null && $prsLName == null ) {
+                    // Rule 2:
+                    if ( strcasecmp($a['prs_first_name'], $prsFName) == 0 ) {
+                        die('true');
+                    }
+                } else if ( $prsLName != null && $prsFName == null ) {
+                    // Rule 3:
+                    if ( strcasecmp($a['prs_last_name'], $prsLName) == 0 ) {
+                        die('true');
+                    }
+                }
+            }
+            // default rule:
+            die('false');
+            
+        }
+        
 	public function postAction()
 	{
 		$p  = $this->_request->getParams();
