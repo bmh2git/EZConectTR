@@ -60,7 +60,7 @@
 									<label for="inputEmail12" class="col-md-4 control-label">Agent</label>
 									<div class="col-md-6">
 
-											<input type="text" class="form-control" name='prs_agent' value="<?php echo $this->prs['prs_agent'] ?>">
+											<input type="text" class="form-control" name='prs_agent' id="prs_agent" onblur="validateAgent()" value="<?php echo $this->prs['prs_agent'] ?>">
 									</div>
 								</div>
 								
@@ -68,7 +68,7 @@
 									<label  class="col-md-4 control-label">First Name</label>
 									<div class="col-md-6">
 
-											<input type="text" class="form-control" name='prs_first_name' value="<?php echo $this->prs['prs_first_name'] ?>">
+											<input type="text" class="form-control" name='prs_first_name' id="prs_first_name" onblur="validateAgentName()" value="<?php echo $this->prs['prs_first_name'] ?>">
 									</div>
 								</div>
 								
@@ -76,7 +76,7 @@
 									<label  class="col-md-4 control-label">Last Name</label>
 									<div class="col-md-6">
 
-											<input type="text" class="form-control" name='prs_last_name' value="<?php echo $this->prs['prs_last_name'] ?>">
+											<input type="text" class="form-control" name='prs_last_name' id="prs_last_name" onblur="validateAgentName()" value="<?php echo $this->prs['prs_last_name'] ?>">
 									</div>
 								</div>
 								
@@ -84,7 +84,7 @@
 									<label for="inputEmail12" class="col-md-4 control-label">Agency</label>
 									<div class="col-md-6">
 
-											<input type="text" class="form-control" name='prs_agency' value="<?php echo $this->prs['prs_agency'] ?>">
+                                                                            <input type="text" class="form-control" name="prs_agency" id="prs_agency" value="<?php echo $this->prs['prs_agency'] ?>" onblur="validateAgency()">
 									</div>
 								</div>
 								
@@ -92,7 +92,7 @@
 									<label for="inputEmail12" class="col-md-4 control-label">Phone</label>
 									<div class="col-md-6">
 
-											<input type="text" class="form-control" name='prs_phone' value="<?php echo $this->prs['prs_phone'] ?>">
+											<input type="text" class="form-control" name='prs_phone' id="prs_phone" onblur="validateAgency()"  value="<?php echo $this->prs['prs_phone'] ?>">
 									</div>
 								</div>
 								
@@ -264,6 +264,76 @@ function  saveAnswers()
 	$('#save_answers').val(1);
 	registerEntry();
 
+}
+
+function validateAgency() {
+    $.ajax( {
+            type : 'post',
+            data : {'prs_agency' : $("#prs_agency").val(), 'prs_phone' : $("#prs_phone").val()},
+            url : '/prospect/validate-agency',
+            
+            success : function( r ) {
+                console.log( r );
+                if ( r === 'true' ) {
+                    // only mark fields red which have values
+                    if ( $("#prs_agency").val().trim().length > 0 ) {
+                        // mark the agency field red since it has a value
+                        $("#prs_agency").css({"background-color":"LightCoral"});
+                    }
+                    if ( $("#prs_phone").val().trim().length > 0 ) {
+                        $("#prs_phone").css( {"background-color":"LightCoral"});
+                    }
+                } else {
+                    // make sure to reset the back ground on any fields we are changing
+                    $("#prs_agency").css({"background-color":"white"});
+                    $("#prs_phone").css( {"background-color":"white"});
+                }
+            }
+    });
+}
+
+function validateAgent() {
+    $.ajax( {
+        type : 'post',
+        data : $("#prs_agent").serialize(),
+        url  : '/prospect/validate-agent',
+        success : function( r ) {
+            console.log( r );
+            if ( r === 'true' ) {
+                // mark agent field red
+                if ( $("#prs_agent").val().trim().length > 0 ) {
+                    $("#prs_agent").css( {"background-color":"LightCoral"});
+                }
+            } else {
+                $("#prs_agent").css( {"background-color":"white"});
+            }
+        }
+    });
+}
+
+function validateAgentName() {
+    $.ajax( {
+        type : 'post',
+        data : {'prs_first_name':$("#prs_first_name").val(), 'prs_last_name':$("#prs_last_name").val() },
+        url  : '/prospect/validate-agent-name',
+        success : function( r ) {
+            console.log( r );
+            if ( r === 'true' ) {
+                // mark the first name field red if the field has values
+                if ( $("#prs_first_name").val().trim().length > 0 ) {
+                    $("#prs_first_name").css({"background-color":"LightCoral"});
+                }
+                // mark the last name field red if the field has values
+                if ( $("#prs_last_name").val().trim().length > 0 ) {
+                    $("#prs_last_name").css({"background-color":"LightCoral"});
+                }
+            } else {
+                // reset the back ground on all fields.
+                $("#prs_first_name").css({"background-color":"white"});
+                $("#prs_last_name").css({"background-color":"white"});
+            }
+        }
+    });
 }
 
 function promoteTo(promoteType)
